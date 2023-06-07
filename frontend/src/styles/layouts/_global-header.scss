@@ -1,0 +1,110 @@
+.global-header {
+  $side-white-space: 6px;
+
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: $global-header-level;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: $global-header-height;
+  padding: 0 20px;
+  border-bottom: 1px solid $border;
+  background-color: $white;
+
+  .left-menu {
+    display: flex;
+    align-items: center;
+    margin-left: -$side-white-space;
+
+    li {
+      margin-right: 12px;
+      position: relative;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      button:not(.button-local) {
+        width: 30px;
+        height: 30px;
+        font-size: 24px;
+        color: $primary;
+      }
+
+      button.button-local {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 30px;
+        padding: 0 $side-white-space;
+        font-size: 18px;
+        line-height: 30px;
+        color: $primary;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+
+        i {
+          margin-left: 10px;
+          font-size: 15px;
+          padding-top: 3px;
+        }
+      }
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  .right-menu {
+    display: flex;
+    margin-right: -$side-white-space;
+
+    li {
+      margin-right: 12px;
+      position: relative;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      & > button:not(.button-submit) {
+        width: 30px;
+        height: 30px;
+        font-size: 24px;
+        color: $primary;
+      }
+
+      .button-submit {
+        height: 30px;
+        font-size: 16px;
+        color: $red;
+        font-weight: 500;
+        padding: 0 $side-white-space;
+      }
+
+      .detail-menu {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        width: 100px;
+        border: 1px solid $border;
+        background-color: $white;
+
+        button {
+          display: block;
+          width: 100%;
+          height: 40px;
+          line-height: 40px;
+          border-bottom: 1px solid $border;
+          letter-spacing: -0.04em;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}

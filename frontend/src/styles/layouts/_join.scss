@@ -1,0 +1,21 @@
+.join {
+  padding: 20px 20px 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .logo {
+    margin-bottom: 100px;
+    margin-left: -6px;
+  }
+
+  .button-primary {
+    margin-top: 40px;
+    width: 100%;
+  }
+
+  input + label {
+    margin-top: 30px;
+  }
+}

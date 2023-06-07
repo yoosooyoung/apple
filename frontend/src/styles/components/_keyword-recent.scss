@@ -1,0 +1,73 @@
+.keyword-recent {
+  padding: 20px;
+  min-height: calc(
+    100vh - #{$global-header-height} - #{$global-tab-bar-height}
+  );
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    button {
+      color: $secondary;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .keyword-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      display: flex;
+      align-items: center;
+      width: calc(50% - 10px);
+      border-bottom: 1px solid $border;
+      margin-right: 10px;
+
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+
+      &.empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 500px;
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.2em;
+        border-bottom: 1px solid $border;
+      }
+
+      .keyword {
+        display: block;
+        height: 50px;
+        flex-grow: 1;
+        text-align: left;
+        font-size: 16px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .button-delete {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 50px;
+        font-size: 12px;
+      }
+    }
+  }
+}

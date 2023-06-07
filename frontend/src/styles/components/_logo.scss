@@ -1,0 +1,16 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Jua", sans-serif;
+
+  img {
+    width: 30px;
+  }
+
+  span {
+    font-size: 24px;
+    padding-left: 10px;
+    padding-top: 2px;
+  }
+}

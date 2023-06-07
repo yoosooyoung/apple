@@ -1,0 +1,27 @@
+.chat-message-form {
+  display: flex;
+  width: 100%;
+  background-color: pink;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  textarea {
+    height: 60px;
+    border: 0;
+    padding: 10px;
+    flex-grow: 1;
+    line-height: 1.4em;
+    border-top: 1px solid $border;
+  }
+
+  .button-send {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    background-color: $red;
+    color: $white;
+  }
+}

@@ -1,0 +1,24 @@
+body {
+}
+
+.mypage-menu-list {
+  li {
+    padding: 0;
+
+    a {
+      display: block;
+      font-size: 16px;
+      line-height: 1.2em;
+      font-weight: 500;
+      display: flex;
+      padding: 20px;
+      border-bottom: 1px solid $border;
+      color: $primary;
+
+      i {
+        font-size: 22px;
+        padding-right: 8px;
+      }
+    }
+  }
+}

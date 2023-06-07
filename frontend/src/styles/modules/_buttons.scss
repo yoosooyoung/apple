@@ -1,0 +1,24 @@
+button {
+  &.button-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    background-color: $red;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  &.h38 {
+    height: 38px;
+    padding: 0 20px;
+    font-size: 14px;
+  }
+
+  &.h50 {
+    height: 50px;
+    line-height: 48px;
+    padding: 0 20px;
+    font-size: 16px;
+  }
+}

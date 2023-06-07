@@ -1,0 +1,14 @@
+.float-button {
+  position: fixed;
+  bottom: $global-tab-bar-height + 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: $red;
+  color: $white;
+  font-size: 20px;
+}

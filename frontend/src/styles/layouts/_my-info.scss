@@ -1,0 +1,16 @@
+.my-info {
+  min-height: 100vh;
+  padding: 50px 20px 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .editable-avatar {
+    margin-bottom: 30px;
+  }
+
+  .editable-inputs {
+    width: 100%;
+  }
+}
