@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.memberDao">
+	<insert id="insertMember" parameterType="com.example.demo.vo.memberVo">
+    	INSERT INTO 
+    	       APPLE_MEMBER (
+			   USER_ID,
+			   USER_PW,
+			   USER_JOIN,
+			   USER_NAME,
+			   USER_EMAIL
+			   )
+	    VALUES(
+	    	   #{user_id},
+	    	   #{user_pw}, 
+	    	   TO_CHAR(SYSDATE,'yyyy.mm.dd hh24:mi'),
+		       #{user_name}, 
+		       #{user_email}
+		       )	
+	</insert>
+	
+	<select id="memberLogin" parameterType="com.example.demo.vo.memberVo" resultType="com.example.demo.vo.memberVo">
+		SELECT *
+		  FROM APPLE_MEMBER
+		 WHERE USER_ID = #{user_id}
+	</select>
+	
+	<select id="checkId" parameterType="com.example.demo.vo.memberVo" resultType="int">
+		SELECT COUNT(*) AS CNT
+		  FROM APPLE_MEMBER
+		 WHERE USER_ID = #{user_id}	
+	</select>
+</mapper>
