@@ -11,7 +11,6 @@
       @input="getUserId($event.target.value)"
       maxlength="12"
     />
-
     <label for="nickName" class="label-title">닉네임</label>
     <input
       type="text"
@@ -20,6 +19,16 @@
       @input="getUserName($event.target.value)"
       placeholder="사용하실 닉네임을 입력해주세요"
       maxlength="8"
+    />
+
+    <label for="nickName" class="label-title">비밀번호</label>
+    <input
+      type="text"
+      id="password"
+      class="input-basic h50"
+      @input="getUserPassword($event.target.value)"
+      placeholder="사용하실 비밀번호를 입력해주세요"
+      maxlength="20"
     />
 
     <button type="button" class="button-primary h50" @click="join">완료</button>
@@ -39,7 +48,7 @@ export default {
     ...mapState(["userInfo"]),
   },
   methods: {
-    ...mapMutations(["getUserId", "getUserName", "getUserName", "join"]),
+    ...mapMutations(["getUserId", "getUserName", "getUserPassword", "join"]),
   },
 };
 </script>
