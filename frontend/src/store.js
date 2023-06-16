@@ -13,6 +13,7 @@ const store = createStore({
       ),
       userName: "",
       userId: "",
+      userEmail: "",
       userPassword: "",
       userInfo: JSON.parse(window.localStorage.getItem("userInfo")),
       HeaderMenuIsShow: false,
@@ -37,33 +38,54 @@ const store = createStore({
     getUserName(state, value) {
       state.userName = value;
     },
+    getUserEmail(state, value) {
+      state.userEmail = value;
+    },
     getUserPassword(state, value) {
       state.userPassword = value;
     },
+
     join(state) {
       if (state.userId == "") {
         alert("아이디를 입력해주세요.");
       } else if (state.userName == "") {
         alert("닉네임을 입력해주세요.");
+      } else if (state.userEmail == "") {
+        alert("이메일를 입력해주세요.");
       } else if (state.userPassword == "") {
         alert("비밀번호를 입력해주세요.");
       } else {
-        (state.userInfo = {
+        state.userInfo = {
           userId: state.userId,
           nickName: state.userName,
           password: state.userPassword,
-          location: "노원구 공릉동",
-          locationDong: "공릉동",
-          liked: [],
-          image: null,
-        }),
-          console.log(state.userInfo);
+          email: state.userEmail,
+        };
+      }
+    },
+
+    login(state) {
+      if (state.userId == "") {
+        alert("아이디를 입력해주세요.");
+      } else if (state.userPassword == "") {
+        alert("비밀번호를 입력해주세요.");
+      } else {
+        state.userInfo = {
+          userId: state.userId,
+          password: state.userPassword,
+        };
+
         const frm = new FormData();
         frm.append("user_id", state.userInfo.userId);
         frm.append("user_pw", state.userInfo.password);
-        axios.post("/api/signin/check", frm).then(function (response) {
-          console.log(response);
-        });
+        axios
+          .post("/api/signin/check", frm)
+          .then(function (response) {
+            console.log(response.data);
+          })
+          .then(function (data) {
+            console.log(data);
+          });
       }
     },
 

@@ -1,0 +1,15 @@
+.induce-join {
+  margin-top: 30px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    margin-right: 10px;
+  }
+  a {
+    color: $blue;
+    font-weight: 500;
+    text-decoration: underline;
+  }
+}
