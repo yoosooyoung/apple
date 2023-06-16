@@ -16,9 +16,11 @@
       <RouterView />
     </div>
 
-    <Join v-else />
+    <div v-else>
+      <Join v-if="$route.path == '/join'" />
 
-    <button @click="test">테스트버튼</button>
+      <Login v-else />
+    </div>
   </div>
 </template>
 
@@ -29,6 +31,7 @@ import GlobalHeader from "./components/GlobalHeader.vue";
 import GlobalTabBar from "./components/GlobalTabBar.vue";
 import FloatButton from "./components/FloatButton.vue";
 import Join from "./components/Join.vue";
+import Login from "./components/Login.vue";
 
 export default {
   name: "App",
@@ -43,12 +46,13 @@ export default {
     GlobalTabBar,
     FloatButton,
     Join,
+    Login,
   },
   computed: {
     ...mapState(["userInfo", "productListData"]),
   },
-  methods:{
-     test() {
+  methods: {
+    test() {
       axios
         .get("/api/join")
         .then((response) => {
@@ -58,7 +62,6 @@ export default {
           console.log(error);
         });
     },
-  }
-}
+  },
+};
 </script>
-
