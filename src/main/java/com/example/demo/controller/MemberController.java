@@ -90,6 +90,7 @@ public class MemberController {
                  lvo.setUser_pw("");    // 인코딩된 비밀번호 정보 지움
                  session.setAttribute("member", lvo);    // session에 사용자 정보 저장
                  sess.put("member",lvo);
+                 sess.put("result", "success");
                  return sess;
              } else {
              	sess.put("result", 0);
