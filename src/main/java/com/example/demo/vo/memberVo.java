@@ -5,7 +5,7 @@ public class memberVo {
 	private String user_id; //id
 	private String user_pw; //pw
 	private String user_join;//가입시간
-	private String user_name;//사용자이름
+	private String nick_name;//사용자이름
 	private String user_email;//사용자이메일
 	
 	
@@ -27,11 +27,12 @@ public class memberVo {
 	public void setUser_join(String user_join) {
 		this.user_join = user_join;
 	}
-	public String getUser_name() {
-		return user_name;
+	
+	public String getNick_name() {
+		return nick_name;
 	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setNick_name(String nick_name) {
+		this.nick_name = nick_name;
 	}
 	public String getUser_email() {
 		return user_email;

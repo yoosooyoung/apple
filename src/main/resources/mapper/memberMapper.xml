@@ -9,14 +9,14 @@
 			   USER_ID,
 			   USER_PW,
 			   USER_JOIN,
-			   USER_NAME,
+			   NICK_NAME,
 			   USER_EMAIL
 			   )
 	    VALUES(
 	    	   #{user_id},
 	    	   #{user_pw}, 
 	    	   TO_CHAR(SYSDATE,'yyyy.mm.dd hh24:mi'),
-		       #{user_name}, 
+		       #{nick_name}, 
 		       #{user_email}
 		       )	
 	</insert>

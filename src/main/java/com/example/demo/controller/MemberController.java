@@ -56,7 +56,7 @@ public class MemberController {
         	vo.setUser_pw(pwEncoder.encode(vo.getUser_pw()));
         	//회원가입서비스 실행
         	memberSvc.insertMember(vo);
-        	result.put("result", "0");
+        	result.put("result", "success");
 		} catch (Exception e) {
 			result.put("result", "1");
 		}
