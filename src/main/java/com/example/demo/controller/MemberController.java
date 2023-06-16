@@ -73,29 +73,32 @@ public class MemberController {
      * @throws Exception
      */
     @RequestMapping(value = "/signin/check")
-    public String signInCheck(Model model,HttpServletRequest request, memberVo member, RedirectAttributes rttr) throws Exception {
+    public Map<String, Object> signInCheck(Model model,HttpServletRequest request, memberVo member, RedirectAttributes rttr) throws Exception {
 
-        HttpSession session = request.getSession();
-        String rawPw = "";
-        String encodePw = "";
-        System.out.println(model);
-        memberVo lvo = memberSvc.memberLogin(member);
+    	 HttpSession session = request.getSession();
+         Map<String, Object> sess = new HashMap<String, Object>();
+         String rawPw = "";
+         String encodePw = "";
 
-        if (lvo != null) {  // 일치하는 아이디 존재시
-            rawPw = member.getUser_pw();   // 사용자가 제출한 비밀번호
-            encodePw = lvo.getUser_pw();   // 데이터베이스에 저장한 인코딩 비밀번호
-            if (true ==pwEncoder.matches(rawPw, encodePw)) {   //비밀번호 일치 여부 판단
-                lvo.setUser_pw("");    // 인코딩된 비밀번호 정보 지움
-                session.setAttribute("member", lvo);    // session에 사용자 정보 저장
-                return "redirect:/";
-            } else {
-                rttr.addFlashAttribute("result", 0);
-                return "redirect:/signin";
-            }
-        } else {        // 일치하는 아이디가 존재하지 않을 시
-            rttr.addFlashAttribute("result", 1);
-            return "redirect:/signin";
-        }
+         memberVo lvo = memberSvc.memberLogin(member);
+
+         if (lvo != null) {  // 일치하는 아이디 존재시
+             rawPw = member.getUser_pw();   // 사용자가 제출한 비밀번호
+             encodePw = lvo.getUser_pw();   // 데이터베이스에 저장한 인코딩 비밀번호
+
+             if (true == pwEncoder.matches(rawPw, encodePw)) {   //비밀번호 일치 여부 판단
+                 lvo.setUser_pw("");    // 인코딩된 비밀번호 정보 지움
+                 session.setAttribute("member", lvo);    // session에 사용자 정보 저장
+                 sess.put("member",lvo);
+                 return sess;
+             } else {
+             	sess.put("result", 0);
+                 return sess;
+             }
+         } else {        // 일치하는 아이디가 존재하지 않을 시
+         	sess.put("result", 1);
+             return sess;
+         }
     }   
     
     

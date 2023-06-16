@@ -10,8 +10,6 @@ grant connect, resource, dba to VUE_DB;
 	"USER_PW" VARCHAR2(100 BYTE), 
 	"NICK_NAME" VARCHAR2(100 BYTE), 
 	"USER_LOCATION" VARCHAR2(100 BYTE), 
-	"USER_LOCATION_DONG" VARCHAR2(100 BYTE), 
-	"USER_LIKE" VARCHAR2(100 BYTE), 
 	"USER_IMAGE" VARCHAR2(100 BYTE), 
 	"USER_JOIN" VARCHAR2(100 BYTE), 
 	"USER_EMAIL" VARCHAR2(100 BYTE)
@@ -26,3 +24,8 @@ grant connect, resource, dba to VUE_DB;
    (USER_ID, USER_PW, NICK_NAME)
    VALUES ('admin','$2a$10$WLYEXsKMeiOwqvY4fEAv0etZ5caCdMdGgyG1ZHZnEV3ICHgMeLpSm','apple');
    commit;   
+   
+   UPDATE APPLE_MEMBER SET USER_LOCATION = '중랑구 중화동',  USER_EMAIL='wndgkh202@naver.com' where user_id ='admin';
+   commit;
+   
+   
