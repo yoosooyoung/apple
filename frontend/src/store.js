@@ -1,284 +1,285 @@
-import { createStore } from 'vuex';
-import router from './router';
-import axios from 'axios';
+import { createStore } from "vuex";
+import router from "./router";
+import axios from "axios";
 
 const store = createStore({
-	state() {
-		return {
-			productListData: JSON.parse(
-				window.localStorage.getItem('productListData')
-			),
-			searchProductListData: JSON.parse(
-				window.localStorage.getItem('productListData')
-			),
-			userName: '',
-			userId: '',
-			userEmail: '',
-			userPassword: '',
-			userInfo: JSON.parse(window.localStorage.getItem('userInfo')),
-			HeaderMenuIsShow: false,
-			searchMode: false,
-			searchResultMode: false,
-			searchKeyword: '',
-			recentKeyword: JSON.parse(
-				window.localStorage.getItem('recentKeyword')
-			),
-		};
-	},
-	mutations: {
-		/* 상품리스트 업데이트 */
-		updateProductList(state) {
-			state.productListData = JSON.parse(
-				window.localStorage.getItem('productListData')
-			);
-		},
+  state() {
+    return {
+      productListData: JSON.parse(
+        window.localStorage.getItem("productListData")
+      ),
+      searchProductListData: JSON.parse(
+        window.localStorage.getItem("productListData")
+      ),
+      userName: "",
+      userId: "",
+      userEmail: "",
+      userPassword: "",
+      userInfo: null,
+      HeaderMenuIsShow: false,
+      searchMode: false,
+      searchResultMode: false,
+      searchKeyword: "",
+      recentKeyword: JSON.parse(window.localStorage.getItem("recentKeyword")),
 
-		/* 회원가입 */
-		getUserId(state, value) {
-			state.userId = value;
-		},
-		getUserName(state, value) {
-			state.userName = value;
-		},
-		getUserEmail(state, value) {
-			state.userEmail = value;
-		},
-		getUserPassword(state, value) {
-			state.userPassword = value;
-		},
+      // 로그인
+      loginId: "",
+      loginPw: "",
+    };
+  },
+  mutations: {
+    /* 상품리스트 업데이트 */
+    updateProductList(state) {
+      state.productListData = JSON.parse(
+        window.localStorage.getItem("productListData")
+      );
+    },
 
-		join(state) {
-			if (state.userId == '') {
-				alert('아이디를 입력해주세요.');
-			} else if (state.userName == '') {
-				alert('닉네임을 입력해주세요.');
-			} else if (state.userEmail == '') {
-				alert('이메일를 입력해주세요.');
-			} else if (state.userPassword == '') {
-				alert('비밀번호를 입력해주세요.');
-			} else {
-				state.userInfo = {
-					userId: state.userId,
-					nickName: state.userName,
-					password: state.userPassword,
-					email: state.userEmail,
-				};
-				const frm = new FormData();
-				frm.append('user_id', state.userInfo.userId);
-				frm.append('user_pw', state.userInfo.password);
-				frm.append('nick_name', state.userInfo.nickName);
-				frm.append('user_email', state.userInfo.email);
-				axios.post('/api/join', frm).then(function (response) {
-					console.log(response.data);
-				});
-			}
-		},
+    /* 회원가입 */
+    getUserId(state, value) {
+      state.userId = value;
+    },
+    getUserName(state, value) {
+      state.userName = value;
+    },
+    getUserEmail(state, value) {
+      state.userEmail = value;
+    },
+    getUserPassword(state, value) {
+      state.userPassword = value;
+    },
 
-		login(state) {
-			if (state.userId == '') {
-				alert('아이디를 입력해주세요.');
-			} else if (state.userPassword == '') {
-				alert('비밀번호를 입력해주세요.');
-			} else {
-				state.userInfo = {
-					userId: state.userId,
-					password: state.userPassword,
-				};
+    join(state) {
+      if (state.userId == "") {
+        alert("아이디를 입력해주세요.");
+      } else if (state.userName == "") {
+        alert("닉네임을 입력해주세요.");
+      } else if (state.userEmail == "") {
+        alert("이메일를 입력해주세요.");
+      } else if (state.userPassword == "") {
+        alert("비밀번호를 입력해주세요.");
+      } else {
+        // state.userInfo = {
+        //   userId: state.userId,
+        //   nickName: state.userName,
+        //   password: state.userPassword,
+        //   email: state.userEmail,
+        // };
+        // const frm = new FormData();
+        // frm.append("user_id", state.userInfo.userId);
+        // frm.append("user_pw", state.userInfo.password);
+        // frm.append("nick_name", state.userInfo.nickName);
+        // frm.append("user_email", state.userInfo.email);
+        // axios.post("/api/join", frm).then(function (response) {
+        //   console.log(response.data);
+        // });
+      }
+    },
 
-				const frm = new FormData();
-				frm.append('user_id', state.userInfo.userId);
-				frm.append('user_pw', state.userInfo.password);
-				axios
-					.post('/api/signin/check', frm)
-					.then(function (response) {
-						console.log(response.data);
-					})
-					.then(function (data) {
-						console.log(data);
-					});
-			}
-		},
+    /* 로그인 */
+    getLoginId(state, value) {
+      state.loginId = value;
+      console.log(state.loginId);
+    },
+    getLoginPw(state, value) {
+      state.loginPW = value;
+      console.log(state.loginPW);
+    },
+    login(state) {
+      if (state.loginId == "") {
+        alert("아이디를 입력해주세요.");
+      } else if (state.loginPW == "") {
+        alert("비밀번호를 입력해주세요.");
+      } else {
+        const frm = new FormData();
+        frm.append("user_id", state.loginId);
+        frm.append("user_pw", state.loginPW);
 
-		/* 마이페이지 - 정보수정 */
-		getUserImage(state, target) {
-			if (target != undefined) {
-				const file = target.files[0];
-				const url = URL.createObjectURL(file);
-				state.userInfo.image = url;
-			}
-		},
-		getUserNickName(state, value) {
-			state.userInfo.nickName = value;
-		},
-		saveMyInfo(state) {
-			if (state.userInfo.nickName == '') {
-				alert('닉네임을 입력해주세요');
-			} else {
-				window.localStorage.setItem(
-					'userInfo',
-					JSON.stringify(state.userInfo)
-				);
-				alert('정보수정이 완료되었습니다.');
-				router.push('/mypage');
-			}
-		},
+        axios.post("/api/signin/check", frm).then(function (response) {
+          if (response.data.result == "success") {
+            sessionStorage.setItem(
+              "user_info",
+              JSON.stringify(response.data.member)
+            );
+            state.userInfo = window.sessionStorage.getItem("user_info");
+          } else if (response.data.result == 0 || response.data.result == 1) {
+            alert("로그인정보가 일치하지 않습니다. 다시한번 확인해주세요.");
+          }
+        });
+      }
+    },
 
-		/* 상세  - 좋아요 */
-		toggleWish(state, id) {
-			let likedList = state.userInfo.liked;
+    /* 마이페이지 - 정보수정 */
+    getUserImage(state, target) {
+      if (target != undefined) {
+        const file = target.files[0];
+        const url = URL.createObjectURL(file);
+        state.userInfo.image = url;
+      }
+    },
+    getUserNickName(state, value) {
+      state.userInfo.nickName = value;
+    },
+    saveMyInfo(state) {
+      if (state.userInfo.nickName == "") {
+        alert("닉네임을 입력해주세요");
+      } else {
+        window.localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
+        alert("정보수정이 완료되었습니다.");
+        router.push("/mypage");
+      }
+    },
 
-			// userInfo 좋아요 리스트에서 삭제
-			const targetInUserInfo = likedList.filter((item) => {
-				item == id;
-			});
-			const idxInUserInfo = likedList.indexOf(targetInUserInfo);
+    /* 상세  - 좋아요 */
+    toggleWish(state, id) {
+      let likedList = state.userInfo.liked;
 
-			// productListData 좋아요 카운팅 조절
-			let targetInPrd = state.productListData.filter(
-				(item) => id == item.id
-			);
-			const idxInPrd = state.productListData.indexOf(targetInPrd[0]);
+      // userInfo 좋아요 리스트에서 삭제
+      const targetInUserInfo = likedList.filter((item) => {
+        item == id;
+      });
+      const idxInUserInfo = likedList.indexOf(targetInUserInfo);
 
-			if (likedList.includes(id)) {
-				state.userInfo.liked.splice(idxInUserInfo, 1);
-				state.productListData[idxInPrd].likeCnt--;
-			} else {
-				state.userInfo.liked.push(id);
-				state.productListData[idxInPrd].likeCnt++;
-			}
-			window.localStorage.setItem(
-				'userInfo',
-				JSON.stringify(state.userInfo)
-			);
-			window.localStorage.setItem(
-				'productListData',
-				JSON.stringify(state.productListData)
-			);
-		},
+      // productListData 좋아요 카운팅 조절
+      let targetInPrd = state.productListData.filter((item) => id == item.id);
+      const idxInPrd = state.productListData.indexOf(targetInPrd[0]);
 
-		/* 상세 - 글 수정페이지로 이동 */
-		editPost(state, id) {
-			router.push(`/write/${id}`);
-		},
+      if (likedList.includes(id)) {
+        state.userInfo.liked.splice(idxInUserInfo, 1);
+        state.productListData[idxInPrd].likeCnt--;
+      } else {
+        state.userInfo.liked.push(id);
+        state.productListData[idxInPrd].likeCnt++;
+      }
+      window.localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
+      window.localStorage.setItem(
+        "productListData",
+        JSON.stringify(state.productListData)
+      );
+    },
 
-		/* 상세 - 글 삭제 */
-		deletePost(state, id) {
-			let wishIds = state.userInfo.liked;
+    /* 상세 - 글 수정페이지로 이동 */
+    editPost(state, id) {
+      router.push(`/write/${id}`);
+    },
 
-			if (state.productListData.length == 1) {
-				state.productListData = null;
-				window.localStorage.removeItem('productListData');
-			} else {
-				const newDataList = state.productListData.filter(
-					(item) => item.id != id
-				);
-				state.productListData = newDataList;
-				window.localStorage.setItem(
-					'productListData',
-					JSON.stringify(state.productListData)
-				);
+    /* 상세 - 글 삭제 */
+    deletePost(state, id) {
+      let wishIds = state.userInfo.liked;
 
-				// 글 삭제시, 위시리스트에 있던 데이터도 삭제
-				const newWish = wishIds.filter((item) => item !== id);
+      if (state.productListData.length == 1) {
+        state.productListData = null;
+        window.localStorage.removeItem("productListData");
+      } else {
+        const newDataList = state.productListData.filter(
+          (item) => item.id != id
+        );
+        state.productListData = newDataList;
+        window.localStorage.setItem(
+          "productListData",
+          JSON.stringify(state.productListData)
+        );
 
-				if (newWish !== wishIds) {
-					state.userInfo.liked = newWish;
-					// userInfo 좋아요 리스트에서 삭제
-					window.localStorage.setItem(
-						'userInfo',
-						JSON.stringify(state.userInfo)
-					);
-				}
-			}
-			router.go(-1);
-			state.HeaderMenuIsShow = false;
-		},
+        // 글 삭제시, 위시리스트에 있던 데이터도 삭제
+        const newWish = wishIds.filter((item) => item !== id);
 
-		/* 상세 - 메뉴 더보기 */
-		toggleHeaderMenu(state) {
-			if (state.HeaderMenuIsShow == false) {
-				state.HeaderMenuIsShow = true;
-			} else {
-				state.HeaderMenuIsShow = false;
-			}
-		},
+        if (newWish !== wishIds) {
+          state.userInfo.liked = newWish;
+          // userInfo 좋아요 리스트에서 삭제
+          window.localStorage.setItem(
+            "userInfo",
+            JSON.stringify(state.userInfo)
+          );
+        }
+      }
+      router.go(-1);
+      state.HeaderMenuIsShow = false;
+    },
 
-		/* 상세  - 공유하기 */
-		copyUrl() {
-			const urlArea = document.createElement('textarea');
+    /* 상세 - 메뉴 더보기 */
+    toggleHeaderMenu(state) {
+      if (state.HeaderMenuIsShow == false) {
+        state.HeaderMenuIsShow = true;
+      } else {
+        state.HeaderMenuIsShow = false;
+      }
+    },
 
-			document.body.appendChild(urlArea);
-			urlArea.value = window.document.location.href;
-			urlArea.select(); //urlArea를 설정
-			document.execCommand('copy'); // 복사
-			document.body.removeChild(urlArea);
+    /* 상세  - 공유하기 */
+    copyUrl() {
+      const urlArea = document.createElement("textarea");
 
-			alert('URL이 복사되었습니다.'); // 알림창
-		},
+      document.body.appendChild(urlArea);
+      urlArea.value = window.document.location.href;
+      urlArea.select(); //urlArea를 설정
+      document.execCommand("copy"); // 복사
+      document.body.removeChild(urlArea);
 
-		/* 검색기능 */
-		searchItem(state, value) {
-			if (value !== '') {
-				// 검색결과 필터링
-				state.searchKeyword = value;
-				state.searchResultMode = true;
+      alert("URL이 복사되었습니다."); // 알림창
+    },
 
-				if (state.productListData !== null) {
-					state.searchProductListData = state.productListData.filter(
-						(item) =>
-							item.title.includes(value) || item.content.includes(value)
-					);
-					if (state.searchProductListData.length == 0) {
-						state.searchProductListData = null;
-					}
-				} else {
-					state.searchProductListData = null;
-				}
+    /* 검색기능 */
+    searchItem(state, value) {
+      if (value !== "") {
+        // 검색결과 필터링
+        state.searchKeyword = value;
+        state.searchResultMode = true;
 
-				// 최근검색어에 등록
-				if (state.recentKeyword == null) {
-					state.recentKeyword = [];
-				}
-				state.recentKeyword.unshift(value);
-				window.localStorage.setItem(
-					'recentKeyword',
-					JSON.stringify(state.recentKeyword)
-				);
-			} else {
-				alert('검색어를 입력해주세요.');
-			}
-		},
-		// 수정중 감지
-		searchEditing(state, value) {
-			state.searchKeyword = value;
-			state.searchResultMode = false;
-		},
-		//button delete 클릭시 인풋 클리어
-		clearInput(state) {
-			state.searchKeyword = '';
-			state.searchResultMode = false;
-		},
-		// 최근검색어 키워드 지우기
-		deleteRecentKeyowrd(state, idx) {
-			if (state.recentKeyword.length == 1) {
-				state.recentKeyword = null;
-			} else {
-				state.recentKeyword.splice(idx, 1);
-			}
-			window.localStorage.setItem(
-				'recentKeyword',
-				JSON.stringify(state.recentKeyword)
-			);
-		},
-		// 최근검색어 키워드 all
-		deleteRecentKeyowrdAll(state) {
-			state.recentKeyword = null;
-			window.localStorage.setItem(
-				'recentKeyword',
-				JSON.stringify(state.recentKeyword)
-			);
-		},
-	},
+        if (state.productListData !== null) {
+          state.searchProductListData = state.productListData.filter(
+            (item) => item.title.includes(value) || item.content.includes(value)
+          );
+          if (state.searchProductListData.length == 0) {
+            state.searchProductListData = null;
+          }
+        } else {
+          state.searchProductListData = null;
+        }
+
+        // 최근검색어에 등록
+        if (state.recentKeyword == null) {
+          state.recentKeyword = [];
+        }
+        state.recentKeyword.unshift(value);
+        window.localStorage.setItem(
+          "recentKeyword",
+          JSON.stringify(state.recentKeyword)
+        );
+      } else {
+        alert("검색어를 입력해주세요.");
+      }
+    },
+    // 수정중 감지
+    searchEditing(state, value) {
+      state.searchKeyword = value;
+      state.searchResultMode = false;
+    },
+    //button delete 클릭시 인풋 클리어
+    clearInput(state) {
+      state.searchKeyword = "";
+      state.searchResultMode = false;
+    },
+    // 최근검색어 키워드 지우기
+    deleteRecentKeyowrd(state, idx) {
+      if (state.recentKeyword.length == 1) {
+        state.recentKeyword = null;
+      } else {
+        state.recentKeyword.splice(idx, 1);
+      }
+      window.localStorage.setItem(
+        "recentKeyword",
+        JSON.stringify(state.recentKeyword)
+      );
+    },
+    // 최근검색어 키워드 all
+    deleteRecentKeyowrdAll(state) {
+      state.recentKeyword = null;
+      window.localStorage.setItem(
+        "recentKeyword",
+        JSON.stringify(state.recentKeyword)
+      );
+    },
+  },
 });
 
 export default store;

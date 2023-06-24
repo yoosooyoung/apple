@@ -6,12 +6,10 @@
         aria-label="위시리스트에 추가"
         @click="toggleWish(Number($route.params.id))"
       >
-        <i
-          v-if="userInfo.liked.includes(Number($route.params.id)) == false"
-          class="xi-heart-o"
-          aria-hidden="true"
-        ></i>
-        <i v-else class="xi-heart" aria-hidden="true"></i>
+        <!-- JHJ : 유저 좋아요 데이터 추가시 다시 작업하기
+        v-if="userInfo.liked.includes(Number($route.params.id)) == false" -->
+        <i class="xi-heart-o" aria-hidden="true"></i>
+        <!-- <i v-else class="xi-heart" aria-hidden="true"></i> -->
       </button>
       <div class="divider" aria-hidden="true"></div>
       <strong class="price">{{ Number(data.price).toLocaleString() }}원</strong>
