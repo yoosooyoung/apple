@@ -28,4 +28,46 @@ grant connect, resource, dba to VUE_DB;
    UPDATE APPLE_MEMBER SET USER_LOCATION = '중랑구 중화동',  USER_EMAIL='wndgkh202@naver.com' where user_id ='admin';
    commit;
    
+   select * from apple_member;
+   
+   
+   --------------------------------
+   -- 게시판
+   --------------------------------
+   CREATE TABLE "APPLE_BOARD" 
+   (	"board_title" VARCHAR2(100 BYTE), 
+	"board_price" VARCHAR2(100 BYTE), 
+	"board_content" VARCHAR2(100 BYTE), 
+	"user_id" VARCHAR2(100 BYTE), 
+	"board_date" VARCHAR2(100 BYTE), 
+	"board_views" VARCHAR2(100 BYTE), 
+	"board_like" VARCHAR2(100 BYTE)
+   ) ;
+   
+    CREATE TABLE "APPLE_PICTURE" 
+   (	"board_title" VARCHAR2(100 BYTE), 
+	"picture_url" VARCHAR2(100 BYTE)
+   ) ;
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    

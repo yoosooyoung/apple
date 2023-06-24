@@ -26,6 +26,7 @@ import WriteHeader from "../components/WriteHeader.vue";
 import AttachPhoto from "../components/AttachPhoto.vue";
 import InputGroup from "../components/InputGroup.vue";
 import { mapMutations, mapState } from "vuex";
+import axios from 'axios';
 
 export default {
   name: "ProductWrite",
@@ -144,8 +145,16 @@ export default {
 
         // 기존 배열에 추가
         dataArr.unshift(this.definedData);
+        
+        var frm = new FormData();
+        var photoFile = document.getElementById("buttonAttach");
+        frm.append("buttonAttach", photoFile.files[0]);
         // localStorage에 저장
         window.localStorage.setItem("productListData", JSON.stringify(dataArr));
+        axios.post('/api/board/picture/upload', frm, {headers:{
+        'Content-Type':'multipart/form-data'}}).then(function (response) {
+					console.log(response.data);
+		});
         this.updateProductList();
         this.$router.push("/");
       }
