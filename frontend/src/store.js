@@ -11,7 +11,7 @@ const store = createStore({
       searchProductListData: JSON.parse(
         window.localStorage.getItem("productListData")
       ),
-      userInfo: null,
+      userInfo: JSON.parse(window.sessionStorage.getItem("user_info")),
       HeaderMenuIsShow: false,
       searchMode: false,
       searchResultMode: false,
@@ -107,7 +107,6 @@ const store = createStore({
         axios
           .post("/api/join", joinForm)
           .then(function (response) {
-            console.log(response.data);
             state.joinProfileName = "";
             if (response.data.result === "success") {
               alert("회원가입이 완료되었습니다");
@@ -167,7 +166,10 @@ const store = createStore({
       if (state.userInfo.nickName == "") {
         alert("닉네임을 입력해주세요");
       } else {
-        window.localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
+        window.sessionStorage.setItem(
+          "userInfo",
+          JSON.stringify(state.userInfo)
+        );
         alert("정보수정이 완료되었습니다.");
         router.push("/mypage");
       }
