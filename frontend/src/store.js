@@ -11,10 +11,6 @@ const store = createStore({
       searchProductListData: JSON.parse(
         window.localStorage.getItem("productListData")
       ),
-      userName: "",
-      userId: "",
-      userEmail: "",
-      userPassword: "",
       userInfo: null,
       HeaderMenuIsShow: false,
       searchMode: false,
@@ -25,6 +21,17 @@ const store = createStore({
       // 로그인
       loginId: "",
       loginPw: "",
+
+      // 회원가입
+      joinId: "",
+      joinPassword: "",
+      joinPassword2: "",
+      joinName: "",
+      joinEmail: "",
+      joinAddress: "",
+      joinProfile: "",
+      joinProfileName: "",
+      idCheck: false,
     };
   },
   mutations: {
@@ -36,54 +43,92 @@ const store = createStore({
     },
 
     /* 회원가입 */
-    getUserId(state, value) {
-      state.userId = value;
+    getJoinId(state, value) {
+      state.joinId = value;
     },
-    getUserName(state, value) {
-      state.userName = value;
+    getJoinPassword(state, value) {
+      state.joinPassword = value;
     },
-    getUserEmail(state, value) {
-      state.userEmail = value;
+    getJoinPassword2(state, value) {
+      state.joinPassword2 = value;
     },
-    getUserPassword(state, value) {
-      state.userPassword = value;
+    getJoinName(state, value) {
+      state.joinName = value;
+    },
+    getJoinEmail(state, value) {
+      state.joinEmail = value;
+    },
+    getJoinAddress(state, value) {
+      state.joinAddress = value;
+    },
+    getJoinProfile(state, value) {
+      if (value.files[0] == undefined) {
+        state.joinProfile = "";
+        state.joinProfileName = "";
+      } else {
+        state.joinProfile = value.files[0];
+        state.joinProfileName = value.files[0].name;
+      }
+    },
+
+    /* FRONT TO DO : 유효성 검사 */
+    checkId(state) {
+      // id 형식 검사
+      const validateId1 = /^[A-Za-z0-9]{4,12}$/;
+      const validateId2 = /[A-Za-z]/g;
+      const validateId3 = /[0-9]/g;
+      if (
+        validateId1.test(state.joinId) &&
+        validateId2.test(state.joinId) &&
+        validateId3.test(state.joinId)
+      ) {
+        console.log("사용가능한 아이디입니다.");
+      } else {
+        console.log("아이디 다시쓰셈");
+      }
     },
 
     join(state) {
-      if (state.userId == "") {
+      // 유효성 검사(필수값 체크)
+      if (state.joinId == "") {
         alert("아이디를 입력해주세요.");
-      } else if (state.userName == "") {
-        alert("닉네임을 입력해주세요.");
-      } else if (state.userEmail == "") {
-        alert("이메일를 입력해주세요.");
-      } else if (state.userPassword == "") {
+      } else if (state.joinPassword == "") {
         alert("비밀번호를 입력해주세요.");
+      } else if (state.joinPassword2 == "") {
+        alert("비밀번호 확인을 해주세요.");
+      } else if (state.joinName == "") {
+        alert("닉네임을 입력해주세요.");
+      } else if (state.joinEmail == "") {
+        alert("이메일를 입력해주세요.");
+      } else if (state.joinAddress == "") {
+        alert("주소를 입력해주세요.");
       } else {
-        // state.userInfo = {
-        //   userId: state.userId,
-        //   nickName: state.userName,
-        //   password: state.userPassword,
-        //   email: state.userEmail,
-        // };
-        // const frm = new FormData();
-        // frm.append("user_id", state.userInfo.userId);
-        // frm.append("user_pw", state.userInfo.password);
-        // frm.append("nick_name", state.userInfo.nickName);
-        // frm.append("user_email", state.userInfo.email);
-        // axios.post("/api/join", frm).then(function (response) {
-        //   console.log(response.data);
-        // });
+        var joinForm = document.getElementById("joinForm");
+        axios
+          .post("/api/join", joinForm)
+          .then(function (response) {
+            console.log(response.data);
+            state.joinProfileName = "";
+            if (response.data.result === "success") {
+              alert("회원가입이 완료되었습니다");
+              router.push("/");
+            } else if (response.data.result == 1) {
+              alert("중복된 ID입니다.");
+            }
+          })
+          .catch(function (err) {
+            alert("오류발생. 관리자에게 문의해주세요");
+            console.log(err);
+          });
       }
     },
 
     /* 로그인 */
     getLoginId(state, value) {
       state.loginId = value;
-      console.log(state.loginId);
     },
     getLoginPw(state, value) {
       state.loginPW = value;
-      console.log(state.loginPW);
     },
     login(state) {
       if (state.loginId == "") {

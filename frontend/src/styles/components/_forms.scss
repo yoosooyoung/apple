@@ -2,6 +2,66 @@ form {
   display: block;
   width: 100%;
 }
+.form-group {
+  .form-title {
+    display: block;
+    width: 100%;
+    font-size: 17px;
+    letter-spacing: -0.04em;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .required::after {
+    content: "*";
+    display: inline-block;
+    margin-left: 4px;
+    color: $red;
+  }
+  .form-data {
+    display: block;
+    width: 100%;
+    font-size: 17px;
+    margin-bottom: 30px;
+
+    .input-div {
+      display: flex;
+
+      button {
+        flex-shrink: 0;
+        width: 86px;
+        padding: 0 10px;
+        font-size: 14px;
+        font-weight: 400;
+        margin-left: 4px;
+      }
+    }
+
+    .profile-div {
+      display: flex;
+      align-items: center;
+
+      input[type="file"] {
+        display: none;
+      }
+      .file-name {
+        margin-left: 10px;
+      }
+    }
+    .desc {
+      margin-top: 8px;
+      letter-spacing: -0.04em;
+      font-size: 14px;
+
+      &.red {
+        color: red;
+      }
+
+      &.blue {
+        color: $blue;
+      }
+    }
+  }
+}
 
 .label-title {
   display: block;
