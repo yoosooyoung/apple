@@ -16,6 +16,10 @@ const routes = [
     component: Home,
   },
   {
+    path: "/join",
+    component: Home,
+  },
+  {
     path: "/view/:id",
     component: ProductView,
   },
