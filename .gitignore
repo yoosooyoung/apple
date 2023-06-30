@@ -16,7 +16,11 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+<<<<<<< HEAD
 !**/src/main/resources/static
+=======
+!**/src/main/resources/statcic
+>>>>>>> 845fd84c1a61d8b542ce2586a66bb4db5daca769
 
 ### IntelliJ IDEA ###
 .idea
