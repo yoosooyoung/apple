@@ -7,6 +7,7 @@
       type="text"
       placeholder="제목"
       :value="title"
+      name="board_title"
       required
     />
 
@@ -16,6 +17,7 @@
         type="number"
         placeholder="가격"
         :value="price"
+        name="board_price"
         required
       />
       <span v-if="price == null || price == ''" class="won color-gray">￦</span>
@@ -24,7 +26,7 @@
 
     <textarea
       @input="$emit('getContent', $event.target.value)"
-      name=""
+      name="board_content"
       cols="30"
       rows="10"
       :value="content"

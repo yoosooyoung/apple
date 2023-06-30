@@ -34,26 +34,39 @@ grant connect, resource, dba to VUE_DB;
    --------------------------------
    -- 게시판
    --------------------------------
+  DROP TABLE APPLE_BOARD;
    CREATE TABLE "APPLE_BOARD" 
-   (	"board_title" VARCHAR2(100 BYTE), 
-	"board_price" VARCHAR2(100 BYTE), 
-	"board_content" VARCHAR2(100 BYTE), 
-	"user_id" VARCHAR2(100 BYTE), 
-	"board_date" VARCHAR2(100 BYTE), 
-	"board_views" VARCHAR2(100 BYTE), 
-	"board_like" VARCHAR2(100 BYTE)
+   (	
+    "BOARD_SEQ" VARCHAR(25),
+   "BOARD_TITLE" VARCHAR(100), 
+	"BOARD_PRICE" VARCHAR(100), 
+	"BOARD_CONTENT" VARCHAR(100), 
+	"USER_ID" VARCHAR(100), 
+	"BOARD_DATE" VARCHAR(100), 
+	"BOARD_VIEWS" VARCHAR(100), 
+	"BOARD_LIKE" VARCHAR(100)
    ) ;
-   
+   DROP TABLE APPLE_PICTURE;
     CREATE TABLE "APPLE_PICTURE" 
-   (	"board_title" VARCHAR2(100 BYTE), 
-	"picture_url" VARCHAR2(100 BYTE)
+   (	"BOARD_SEQ" VARCHAR2(100 BYTE), 
+	"PICTURE_URL" VARCHAR2(100 BYTE)
    ) ;
+      
+   CREATE SEQUENCE board_seq
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 9999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
 
+              
+    SELECT * FROM APPLE_BOARD;
+    SELECT * FROM APPLE_PICTURE;
+    SELECT * FROM APPLE_MEMBER;
    
-   
-   
-   
-   
+
    
    
    

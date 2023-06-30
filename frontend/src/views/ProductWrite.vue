@@ -1,7 +1,7 @@
 <template>
   <div>
     <WriteHeader @saveData="saveData()" @saveCustomData="saveCustomData()" />
-    <form action="">
+    <form id="formData" action="">
       <AttachPhoto
         :imgUrlArray="imgUrlArray"
         :imgUrlArrayLength="imgUrlArrayLength"
@@ -148,12 +148,18 @@ export default {
         
         var frm = new FormData();
         var photoFile = document.getElementById("buttonAttach");
-        frm.append("buttonAttach", photoFile.files[0]);
+        frm=document.getElementById("formData");
         // localStorage에 저장
         window.localStorage.setItem("productListData", JSON.stringify(dataArr));
-        axios.post('/api/board/picture/upload', frm, {headers:{
-        'Content-Type':'multipart/form-data'}}).then(function (response) {
-					console.log(response.data);
+       
+		axios.post('/api/board/write', frm).then(function (res) {
+       var frm = new FormData();
+       console.log(res);
+       frm.append("board_seq",res.data.board_seq);
+       frm.append("buttonAttach", photoFile.files[0]);
+			 axios.post('/api/board/upload/files', frm, {headers:{
+	        'Content-Type':'multipart/form-data'}}).then(function (response) {
+			});
 		});
         this.updateProductList();
         this.$router.push("/");
