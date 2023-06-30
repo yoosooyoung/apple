@@ -2,26 +2,27 @@
   <div class="join">
     <Logo />
     <label for="userId" class="label-title">아이디</label>
-    <input
-      type="text"
-      id="userId"
-      class="input-basic h50"
-      name="user_id"
-      placeholder="아이디를 입력해주세요"
-      @input="getLoginId($event.target.value)"
-      maxlength="12"
-    />
+    <form id="loginForm">
+      <input
+        type="text"
+        class="input-basic h50"
+        name="user_id"
+        placeholder="아이디를 입력해주세요"
+        @input="getLoginId($event.target.value)"
+        maxlength="12"
+      />
 
-    <label for="nickName" class="label-title">비밀번호</label>
-    <input
-      type="password"
-      id="password"
-      name="user_pw"
-      class="input-basic h50"
-      @input="getLoginPw($event.target.value)"
-      placeholder="비밀번호를 입력해주세요"
-      maxlength="20"
-    />
+      <label for="nickName" class="label-title">비밀번호</label>
+      <input
+        type="password"
+        name="user_pw"
+        class="input-basic h50"
+        @input="getLoginPw($event.target.value)"
+        placeholder="비밀번호를 입력해주세요"
+        maxlength="20"
+        autocomplete
+      />
+    </form>
 
     <div class="induce-join">
       <p>계정이 없으신가요? 그러면 가입하세요</p>

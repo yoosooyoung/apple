@@ -136,11 +136,9 @@ const store = createStore({
       } else if (state.loginPW == "") {
         alert("비밀번호를 입력해주세요.");
       } else {
-        const frm = new FormData();
-        frm.append("user_id", state.loginId);
-        frm.append("user_pw", state.loginPW);
+        var loginForm = document.getElementById("loginForm");
 
-        axios.post("/api/signin/check", frm).then(function (response) {
+        axios.post("/api/signin/check", loginForm).then(function (response) {
           if (response.data.result == "success") {
             sessionStorage.setItem(
               "user_info",
