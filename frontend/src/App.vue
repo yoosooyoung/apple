@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="layouts" v-if="userInfo != null">
+    <div class="layouts" v-if="userInfo !== null">
       <GlobalHeader />
 
       <GlobalTabBar
@@ -15,7 +15,6 @@
 
       <RouterView />
     </div>
-
     <div v-else>
       <Join v-if="$route.path == '/join'" />
 

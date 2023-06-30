@@ -1,24 +1,25 @@
 <template>
   <div class="join">
     <Logo />
-
     <label for="userId" class="label-title">아이디</label>
     <input
       type="text"
       id="userId"
       class="input-basic h50"
-      placeholder="사용하실 아이디를 입력해주세요"
-      @input="getUserId($event.target.value)"
+      name="user_id"
+      placeholder="아이디를 입력해주세요"
+      @input="getLoginId($event.target.value)"
       maxlength="12"
     />
 
     <label for="nickName" class="label-title">비밀번호</label>
     <input
-      type="text"
+      type="password"
       id="password"
+      name="user_pw"
       class="input-basic h50"
-      @input="getUserPassword($event.target.value)"
-      placeholder="사용하실 비밀번호를 입력해주세요"
+      @input="getLoginPw($event.target.value)"
+      placeholder="비밀번호를 입력해주세요"
       maxlength="20"
     />
 
@@ -46,7 +47,7 @@ export default {
     ...mapState(["userInfo"]),
   },
   methods: {
-    ...mapMutations(["getUserId", "getUserName", "getUserPassword", "login"]),
+    ...mapMutations(["getLoginId", "getLoginPw", "login"]),
   },
 };
 </script>
