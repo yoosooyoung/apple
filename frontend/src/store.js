@@ -34,13 +34,27 @@ const store = createStore({
       idCheck: false,
     };
   },
+  updated(store) {
+    store.dispatch("dispatch");
+  },
+  computed: {},
   mutations: {
+    // state 변경은 mutation에서
+
     /* 상품리스트 업데이트 */
-    updateProductList(state) {
-      state.productListData = JSON.parse(
-        window.localStorage.getItem("productListData")
-      );
+    updateProductList(state, response) {
+      // state.productListData = JSON.parse(
+      //   window.localStorage.getItem("productListData")
+      // );
+      console.log(response);
+      state.productListData = this.response.data.list;
     },
+    // getProductList(state) {
+    //   axios.get("/api/board/list").then(function (response) {
+    //     console.log(response);
+    //     state.productListData = this.response.data.list;
+    //   });
+    // },
 
     /* 회원가입 */
     getJoinId(state, value) {
@@ -88,40 +102,6 @@ const store = createStore({
       }
     },
 
-    join(state) {
-      // 유효성 검사(필수값 체크)
-      if (state.joinId == "") {
-        alert("아이디를 입력해주세요.");
-      } else if (state.joinPassword == "") {
-        alert("비밀번호를 입력해주세요.");
-      } else if (state.joinPassword2 == "") {
-        alert("비밀번호 확인을 해주세요.");
-      } else if (state.joinName == "") {
-        alert("닉네임을 입력해주세요.");
-      } else if (state.joinEmail == "") {
-        alert("이메일를 입력해주세요.");
-      } else if (state.joinAddress == "") {
-        alert("주소를 입력해주세요.");
-      } else {
-        var joinForm = document.getElementById("joinForm");
-        axios
-          .post("/api/join", joinForm)
-          .then(function (response) {
-            state.joinProfileName = "";
-            if (response.data.result === "success") {
-              alert("회원가입이 완료되었습니다");
-              router.push("/");
-            } else if (response.data.result == 1) {
-              alert("중복된 ID입니다.");
-            }
-          })
-          .catch(function (err) {
-            alert("오류발생. 관리자에게 문의해주세요");
-            console.log(err);
-          });
-      }
-    },
-
     /* 로그인 */
     getLoginId(state, value) {
       state.loginId = value;
@@ -139,11 +119,14 @@ const store = createStore({
 
         axios.post("/api/signin/check", loginForm).then(function (response) {
           if (response.data.result == "success") {
-            sessionStorage.setItem(
-              "user_info",
-              JSON.stringify(response.data.member)
-            );
-            state.userInfo = window.sessionStorage.getItem("user_info");
+            state.userInfo = {
+              // FRONT TO DO : 데이터 추가 완료시, USER 데이터 업데이트해주기
+              id: response.data.member.user_id,
+              nickName: response.data.member.nick_name,
+              image: response.data.member.user_image,
+              location: response.data.member.user_location,
+            };
+            sessionStorage.setItem("user_info", JSON.stringify(state.userInfo));
           } else if (response.data.result == 0 || response.data.result == 1) {
             alert("로그인정보가 일치하지 않습니다. 다시한번 확인해주세요.");
           }
@@ -323,6 +306,53 @@ const store = createStore({
         "recentKeyword",
         JSON.stringify(state.recentKeyword)
       );
+    },
+  },
+
+  actions: {
+    //ajax는 actions에서
+
+    getProductList(context) {
+      axios.get("/api/board/list").then(function (response) {
+        console.log("hi");
+        console.log(response);
+        context.commit("updateProductList", response);
+      });
+    },
+
+    /* 회원가입 */
+    join(state) {
+      // 유효성 검사(필수값 체크)
+      if (state.joinId == "") {
+        alert("아이디를 입력해주세요.");
+      } else if (state.joinPassword == "") {
+        alert("비밀번호를 입력해주세요.");
+      } else if (state.joinPassword2 == "") {
+        alert("비밀번호 확인을 해주세요.");
+      } else if (state.joinName == "") {
+        alert("닉네임을 입력해주세요.");
+      } else if (state.joinEmail == "") {
+        alert("이메일를 입력해주세요.");
+      } else if (state.joinAddress == "") {
+        alert("주소를 입력해주세요.");
+      } else {
+        var joinForm = document.getElementById("joinForm");
+        axios
+          .post("/api/join", joinForm)
+          .then(function (response) {
+            state.joinProfileName = "";
+            if (response.data.result === "success") {
+              alert("회원가입이 완료되었습니다");
+              router.push("/");
+            } else if (response.data.result == 1) {
+              alert("중복된 ID입니다.");
+            }
+          })
+          .catch(function (err) {
+            alert("오류발생. 관리자에게 문의해주세요");
+            console.log(err);
+          });
+      }
     },
   },
 });

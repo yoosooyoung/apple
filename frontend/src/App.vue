@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button @click="$store.dispatch('getProductList')">dkdkkd</button>
     <div class="layouts" v-if="userInfo !== null">
       <GlobalHeader />
 
@@ -50,6 +51,7 @@ export default {
   computed: {
     ...mapState(["userInfo", "productListData"]),
   },
+
   methods: {
     test() {
       axios
