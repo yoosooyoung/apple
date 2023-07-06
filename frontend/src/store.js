@@ -5,9 +5,7 @@ import axios from "axios";
 const store = createStore({
   state() {
     return {
-      productListData: JSON.parse(
-        window.localStorage.getItem("productListData")
-      ),
+      productListData: null,
       searchProductListData: JSON.parse(
         window.localStorage.getItem("productListData")
       ),
@@ -43,18 +41,10 @@ const store = createStore({
 
     /* 상품리스트 업데이트 */
     updateProductList(state, response) {
-      // state.productListData = JSON.parse(
-      //   window.localStorage.getItem("productListData")
-      // );
-      console.log(response);
-      state.productListData = this.response.data.list;
+      state.productListData = response.data.list;
+      console.log("updateProductList");
+      console.log(state.productListData);
     },
-    // getProductList(state) {
-    //   axios.get("/api/board/list").then(function (response) {
-    //     console.log(response);
-    //     state.productListData = this.response.data.list;
-    //   });
-    // },
 
     /* 회원가입 */
     getJoinId(state, value) {
@@ -311,11 +301,8 @@ const store = createStore({
 
   actions: {
     //ajax는 actions에서
-
     getProductList(context) {
       axios.get("/api/board/list").then(function (response) {
-        console.log("hi");
-        console.log(response);
         context.commit("updateProductList", response);
       });
     },
