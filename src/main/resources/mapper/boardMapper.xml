@@ -37,6 +37,7 @@
 	          FROM APPLE_BOARD A
    LEFT OUTER JOIN APPLE_PICTURE B
 	            ON A.BOARD_SEQ = B.BOARD_SEQ
+	      ORDER BY A.BOARD_SEQ DESC
 	</select>
 	
 	<!-- 파일삽입 -->
