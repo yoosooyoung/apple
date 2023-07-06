@@ -61,7 +61,7 @@ public class boardServiceImpl implements boardService {
                 // 생성한 파일 객체를 업로드 처리하지 않으면 임시파일에 저장된 파일이 자동적으로 삭제되기 때문에
                 // transferTo(File f) 메서드를 이용해서 업로드 처리
                 mFile.transferTo(saveFile);
-                fvo.setPicture_url(filePath+"\\"+fileOrgName);
+                fvo.setPicture_url("../uplaod/"+fileOrgName);
                 boardDao.insertFile(fvo);
             }
         }
