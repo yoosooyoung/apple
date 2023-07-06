@@ -166,7 +166,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 import Logo from "./Logo.vue";
 
 export default {
@@ -186,9 +186,10 @@ export default {
       "getJoinEmail",
       "getJoinAddress",
       "getJoinProfile",
-      "join",
+      //"join",
       "checkId",
     ]),
+    ...mapActions(["join"]),
   },
 };
 </script>
