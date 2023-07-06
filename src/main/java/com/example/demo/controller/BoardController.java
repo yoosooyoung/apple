@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +44,19 @@ public class BoardController{
 	public Map<String, String> boardPicture(MultipartHttpServletRequest multiRequest, boardVo bvo, FileVo fvo, HttpServletRequest request) throws Exception{
     	Map<String, String>result = new HashMap<>();
     	boardSvc.uploadFile(multiRequest, fvo);
+        return result;
+    }
+	
+	@RequestMapping("/list")
+	@ResponseBody
+	public Map<String, Object> boardList(HttpServletRequest request) throws Exception{
+    	Map<String, Object>result = new HashMap<>();
+    	
+    	List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+    	
+    	list = boardSvc.listBoard();
+    	result.put("list", list);
+    	
         return result;
     }
 

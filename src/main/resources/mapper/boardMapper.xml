@@ -27,6 +27,10 @@
    		SELECT TO_CHAR(board_seq.NEXTVAL) AS BOARD_SEQ
  			  FROM dual
 	</select>
+	<select id="listBoard" resultType="hashmap" >
+   		SELECT * 
+   		  FROM APPLE_BOARD
+	</select>
 	
 	<insert id="insertFile" parameterType="com.example.demo.vo.FileVo" >
     	INSERT INTO 

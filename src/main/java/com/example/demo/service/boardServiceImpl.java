@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.io.File;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,11 @@ public class boardServiceImpl implements boardService {
 		boardDao.insertBoard(bvo);
 	}		
 	
+	@Override
+	public List<Map<String, Object>> listBoard() {
+		
+		List<Map<String, Object>> list = boardDao.listBoard();
+		return list;
+	}
 }
 	

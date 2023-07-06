@@ -1,5 +1,8 @@
 package com.example.demo.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.vo.FileVo;
@@ -14,5 +17,7 @@ public interface boardDao {
 	void insertFile(FileVo fvo);
 	
 	String getBoardSeq();
+
+	List<Map<String, Object>> listBoard();
 
 }
