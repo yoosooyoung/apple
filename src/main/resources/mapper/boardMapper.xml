@@ -28,8 +28,10 @@
  			  FROM dual
 	</select>
 	<select id="listBoard" resultType="hashmap" >
-   		SELECT * 
-   		  FROM APPLE_BOARD
+	   		SELECT A.*, B.PICTURE_URL
+	          FROM APPLE_BOARD A
+   LEFT OUTER JOIN APPLE_PICTURE B
+	            ON A.BOARD_SEQ = B.BOARD_SEQ
 	</select>
 	
 	<insert id="insertFile" parameterType="com.example.demo.vo.FileVo" >
