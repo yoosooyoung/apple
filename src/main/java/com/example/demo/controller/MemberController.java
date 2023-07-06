@@ -102,7 +102,12 @@ public class MemberController {
          }
     }   
     
-    
+    /**
+     * 로그아웃
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/signout")
     public String logout(HttpServletRequest request) throws Exception{
         

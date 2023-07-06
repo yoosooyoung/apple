@@ -3,6 +3,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.memberDao">
+
+	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="com.example.demo.vo.memberVo">
     	INSERT INTO 
     	       APPLE_MEMBER (
@@ -21,12 +23,14 @@
 		       )	
 	</insert>
 	
+	<!-- 로그인정보 -->
 	<select id="memberLogin" parameterType="com.example.demo.vo.memberVo" resultType="com.example.demo.vo.memberVo">
 		SELECT *
 		  FROM APPLE_MEMBER
 		 WHERE USER_ID = #{user_id}
 	</select>
 	
+	<!-- 회원가입 아이디확인 -->
 	<select id="checkId" parameterType="com.example.demo.vo.memberVo" resultType="int">
 		SELECT COUNT(*) AS CNT
 		  FROM APPLE_MEMBER

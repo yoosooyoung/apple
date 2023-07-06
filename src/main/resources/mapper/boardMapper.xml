@@ -3,6 +3,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.boardDao">
+	
+	<!-- 글쓰기 -->
 	<insert id="insertBoard" parameterType="com.example.demo.vo.boardVo" >
     	INSERT INTO 
     	       APPLE_BOARD (
@@ -23,10 +25,13 @@
 		       )	
 	</insert>
 	
+	<!-- 글번호 시퀀스 -->
 	<select id="getBoardSeq" resultType="String" >
    		SELECT TO_CHAR(board_seq.NEXTVAL) AS BOARD_SEQ
  			  FROM dual
 	</select>
+	
+	<!-- 글 리스트 -->
 	<select id="listBoard" resultType="hashmap" >
 	   		SELECT A.*, B.PICTURE_URL
 	          FROM APPLE_BOARD A
@@ -34,6 +39,7 @@
 	            ON A.BOARD_SEQ = B.BOARD_SEQ
 	</select>
 	
+	<!-- 파일삽입 -->
 	<insert id="insertFile" parameterType="com.example.demo.vo.FileVo" >
     	INSERT INTO 
     	       APPLE_PICTURE (
@@ -45,4 +51,5 @@
 	    	   #{picture_url}
 		       )	
 	</insert>
+	
 </mapper>

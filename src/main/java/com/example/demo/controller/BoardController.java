@@ -29,6 +29,14 @@ public class BoardController{
 	@Autowired
     private boardService boardSvc;
 	
+	/**
+	 * 글쓰기
+	 * @param bvo
+	 * @param fvo
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/write")
 	@ResponseBody
 	public Map<String, String> boardWrite(boardVo bvo, FileVo fvo, HttpServletRequest request) throws Exception{
@@ -39,6 +47,16 @@ public class BoardController{
     	result.put("board_seq", bvo.getBoard_seq());
         return result;
     }
+	
+	/**
+	 * 파일업로드
+	 * @param multiRequest
+	 * @param bvo
+	 * @param fvo
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/upload/files")
 	@ResponseBody
 	public Map<String, String> boardPicture(MultipartHttpServletRequest multiRequest, boardVo bvo, FileVo fvo, HttpServletRequest request) throws Exception{
@@ -47,6 +65,12 @@ public class BoardController{
         return result;
     }
 	
+	/**
+	 * 글 리스트
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/list")
 	@ResponseBody
 	public Map<String, Object> boardList(HttpServletRequest request) throws Exception{
