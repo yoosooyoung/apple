@@ -184,8 +184,16 @@ const store = createStore({
     /* 상세 - 글 삭제 */
     deletePost(state, id) {
       let wishIds = state.userInfo.liked;
+      let boradSeq = id;
 
-      if (state.productListData.length == 1) {
+      axios.post('/api/board/delete', boradSeq).then(res => {
+        console.log(res);
+      }).catch(err => {
+        console.log(err);
+      });
+
+      /*
+      if (state.productListData.length > 0) {
         state.productListData = null;
         window.localStorage.removeItem("productListData");
       } else {
@@ -210,6 +218,8 @@ const store = createStore({
           );
         }
       }
+      */
+
       router.go(-1);
       state.HeaderMenuIsShow = false;
     },

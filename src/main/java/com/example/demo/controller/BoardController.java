@@ -11,9 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.service.boardService;
@@ -47,6 +45,13 @@ public class BoardController{
     	result.put("board_seq", bvo.getBoard_seq());
         return result;
     }
+
+	@PostMapping("/delete")
+	@ResponseBody
+	public String boardDelete(@RequestBody String board_seq) throws Exception{
+		System.out.println(board_seq);
+		return "post success!!!"+board_seq;
+	}
 	
 	/**
 	 * 파일업로드
