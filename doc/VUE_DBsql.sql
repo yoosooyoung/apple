@@ -5,6 +5,7 @@ grant connect, resource, dba to VUE_DB;
 --  DDL for Table APPLE_MEMBER
 --------------------------------------------------------
 
+  DROP TABLE APPLE_MEMBER;
   CREATE TABLE "APPLE_MEMBER" 
    (	"USER_ID" VARCHAR2(100 BYTE), 
 	"USER_PW" VARCHAR2(100 BYTE), 
@@ -13,7 +14,8 @@ grant connect, resource, dba to VUE_DB;
 	"USER_IMAGE" VARCHAR2(100 BYTE), 
 	"USER_JOIN" VARCHAR2(100 BYTE), 
 	"USER_EMAIL" VARCHAR2(100 BYTE)
-   ) 
+   )
+    ;
    
    
    -----------------------------------------------------------
@@ -51,7 +53,8 @@ grant connect, resource, dba to VUE_DB;
    (	"BOARD_SEQ" VARCHAR2(100 BYTE), 
 	"PICTURE_URL" VARCHAR2(100 BYTE)
    ) ;
-      
+
+   DROP SEQUENCE board_seq;
    CREATE SEQUENCE board_seq
        INCREMENT BY 1
        START WITH 1
