@@ -48,9 +48,9 @@ public class BoardController{
 
 	@PostMapping("/delete")
 	@ResponseBody
-	public String boardDelete(@RequestBody String board_seq) throws Exception{
-		System.out.println(board_seq);
-		return "post success!!!"+board_seq;
+	public String boardDelete(boardVo bvo) throws Exception{
+		System.out.println(bvo);
+		return "post success!!!";
 	}
 	
 	/**

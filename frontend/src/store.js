@@ -184,9 +184,9 @@ const store = createStore({
     /* 상세 - 글 삭제 */
     deletePost(state, id) {
       let wishIds = state.userInfo.liked;
-      let boradSeq = id;
 
-      axios.post('/api/board/delete', boradSeq).then(res => {
+      // axios.post 두번째 인자에 null을 넣으면 데이터가 제대로 넘어감 (임시방편 느낌이라 추후에 변경 필요)
+      axios.post('/api/board/delete', null, {params: {board_seq: id}}).then(res => {
         console.log(res);
       }).catch(err => {
         console.log(err);
