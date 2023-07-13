@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-page">
     <UserInfo
       :userImage="userInfo.image"
       :userId="userInfo.id"
@@ -18,6 +18,10 @@
         >
       </li>
     </ul>
+
+    <button type="button" class="btn-logout button-normal h38" @click="logout">
+      로그아웃
+    </button>
   </div>
 </template>
 

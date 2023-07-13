@@ -19,6 +19,16 @@ label {
     font-weight: 600;
     border: 1px solid $border;
   }
+  &.button-normal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $primary;
+    background-color: $white;
+    border-radius: 4px;
+    font-weight: 600;
+    border: 1px solid $border;
+  }
 
   &.h38 {
     height: 38px;
