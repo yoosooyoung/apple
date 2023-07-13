@@ -48,9 +48,11 @@ public class BoardController{
 
 	@PostMapping("/delete")
 	@ResponseBody
-	public String boardDelete(boardVo bvo) throws Exception{
-		System.out.println(bvo);
-		return "post success!!!";
+	public Map<String, String> boardDelete(boardVo bvo) throws Exception{
+		Map<String, String> result = new HashMap<>();
+		boardSvc.deleteBoard(bvo);
+		result.put("message", "s");
+		return result;
 	}
 	
 	/**

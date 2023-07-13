@@ -73,9 +73,16 @@ public class boardServiceImpl implements boardService {
 		bvo.setBoard_seq(boardSeq);
 		fvo.setBoard_seq(boardSeq);
 		boardDao.insertBoard(bvo);
-	}		
-	
-	@Override
+	}
+
+    @Override
+    public void deleteBoard(boardVo bvo) throws Exception {
+        // TO-DO 글 삭제시, 위시리스트에 있던 데이터도 삭제 && 좋아요 리스트에서 삭제
+        boardDao.deleteBoard(bvo);
+        boardDao.deletePicture(bvo);
+    }
+
+    @Override
 	public List<Map<String, Object>> listBoard() {
 		
 		List<Map<String, Object>> list = boardDao.listBoard();

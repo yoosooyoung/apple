@@ -24,6 +24,20 @@
 	    	   TO_CHAR(SYSDATE,'yyyy.mm.dd hh24:mi')
 		       )	
 	</insert>
+
+	<delete id="deleteBoard" parameterType="com.example.demo.vo.boardVo">
+		DELETE
+		  FROM APPLE_BOARD
+		 WHERE 1=1
+    	   AND BOARD_SEQ = #{board_seq}
+	</delete>
+
+	<delete id="deletePicture" parameterType="com.example.demo.vo.boardVo">
+		DELETE
+		FROM APPLE_PICTURE
+		WHERE 1=1
+		  AND BOARD_SEQ = #{board_seq}
+	</delete>
 	
 	<!-- 글번호 시퀀스 -->
 	<select id="getBoardSeq" resultType="String" >

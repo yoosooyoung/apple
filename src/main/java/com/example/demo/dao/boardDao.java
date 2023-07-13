@@ -20,4 +20,7 @@ public interface boardDao {
 
 	List<Map<String, Object>> listBoard();
 
+    void deleteBoard(boardVo bvo);
+
+	void deletePicture(boardVo bvo);
 }

@@ -14,6 +14,8 @@ public interface boardService {
 
 	void insertBoard(boardVo bvo, FileVo fvo) throws Exception;
 
+	void deleteBoard(boardVo bvo) throws Exception;
+
 	List<Map<String, Object>> listBoard();
 
 }
