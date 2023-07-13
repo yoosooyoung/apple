@@ -28,7 +28,7 @@
 <script>
 import UserInfo from "@/components/UserInfo.vue";
 import { RouterLink } from "vue-router";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "Mypage",
@@ -41,6 +41,9 @@ export default {
   },
   computed: {
     ...mapState(["userInfo"]),
+  },
+  methods: {
+    ...mapMutations(["logout"]),
   },
 };
 </script>

@@ -124,6 +124,13 @@ const store = createStore({
       }
     },
 
+    /* 로그아웃 */
+    logout(state) {
+      sessionStorage.removeItem("user_info");
+      state.userInfo = null;
+      router.push("/");
+    },
+
     /* 마이페이지 - 정보수정 */
     getUserImage(state, target) {
       if (target != undefined) {
@@ -186,11 +193,14 @@ const store = createStore({
       let wishIds = state.userInfo.liked;
 
       // axios.post 두번째 인자에 null을 넣으면 데이터가 제대로 넘어감 (임시방편 느낌이라 추후에 변경 필요)
-      axios.post('/api/board/delete', null, {params: {board_seq: id}}).then(res => {
-        console.log(res);
-      }).catch(err => {
-        console.log(err);
-      });
+      axios
+        .post("/api/board/delete", null, { params: { board_seq: id } })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
       /*
       if (state.productListData.length > 0) {
