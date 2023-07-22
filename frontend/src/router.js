@@ -9,6 +9,7 @@ import MyWish from "./views/MyWish.vue";
 import MyPost from "./views/MyPost.vue";
 import MyInfo from "./views/MyInfo.vue";
 import SearchView from "./views/SearchView.vue";
+import ErrorView from "./views/ErrorView.vue";
 
 const routes = [
   {
@@ -60,6 +61,10 @@ const routes = [
   {
     path: "/search",
     component: SearchView,
+  },
+  {
+    path: "/error",
+    component: ErrorView,
   },
 ];
 
