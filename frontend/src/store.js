@@ -230,7 +230,9 @@ const store = createStore({
       }
       */
 
-      router.go(-1);
+
+      window.location.href = "/";
+      //router.push("/"); 새로 고침에 안됨
       state.HeaderMenuIsShow = false;
     },
 
