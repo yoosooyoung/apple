@@ -46,6 +46,17 @@ public class BoardController{
         return result;
     }
 
+	@RequestMapping("/edit/{board_seq}")
+	@ResponseBody
+	public Map<String, String> boardEdit(boardVo bvo, FileVo fvo, HttpServletRequest request) throws Exception{
+		Map<String, String>result = new HashMap<>();
+		HttpSession session = request.getSession();
+		bvo.setUser_id("test");
+		//boardSvc.insertBoard(bvo, fvo);
+		result.put("board_seq", bvo.getBoard_seq());
+		return result;
+	}
+
 	@PostMapping("/delete")
 	@ResponseBody
 	public Map<String, String> boardDelete(boardVo bvo) throws Exception{

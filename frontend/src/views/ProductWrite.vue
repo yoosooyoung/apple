@@ -207,13 +207,25 @@ export default {
       } else if (this.content == "") {
         alert("내용을 입력해주세요.");
       } else {
+
+        let frm = new FormData();
+
+        frm = document.getElementById("formData");
+
+        console.log(this.id);
+
+        axios.post('/api/board/edit/'+this.id, frm).then(function (res) {
+          console.log(res);
+        });
+
+        /*
         // 수정 데이터 정의
         this.defineData();
         dataArr.splice(this.customIdx, 1, this.definedData);
 
         // localStorage에 저장
         window.localStorage.setItem("productListData", JSON.stringify(dataArr));
-
+         */
         // url변경 및 수정하기 팝업 제거
         this.$router.push(`/view/${this.id}`);
         this.toggleHeaderMenu();

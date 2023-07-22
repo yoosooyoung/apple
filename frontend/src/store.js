@@ -188,7 +188,7 @@ const store = createStore({
       router.push(`/write/${id}`);
     },
 
-    /* 상세 - 글 삭제 */
+    /* 상세 - 글  */
     deletePost(state, id) {
       let wishIds = state.userInfo.liked;
 
