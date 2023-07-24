@@ -198,9 +198,7 @@ export default {
       }
 
       // 필수값 처리
-      if (this.imgUrlArrayLength == 0) {
-        alert("사진을 첨부해주세요.");
-      } else if (this.title == "") {
+      if (this.title == "") {
         alert("제목을 입력해주세요.");
       } else if (this.price == "") {
         alert("가격을 입력해주세요.");
@@ -209,13 +207,13 @@ export default {
       } else {
 
         let frm = new FormData();
-
         frm = document.getElementById("formData");
-
-        console.log(this.id);
 
         axios.post('/api/board/edit/'+this.id, frm).then(function (res) {
           console.log(res);
+          // 뷰 페이지가 존재하지 않아 우선 index 페이지로 설정
+          this.$router.push(`/`);
+          this.toggleHeaderMenu();
         });
 
         /*
@@ -227,8 +225,7 @@ export default {
         window.localStorage.setItem("productListData", JSON.stringify(dataArr));
          */
         // url변경 및 수정하기 팝업 제거
-        this.$router.push(`/view/${this.id}`);
-        this.toggleHeaderMenu();
+
       }
     },
   },

@@ -83,6 +83,11 @@ public class boardServiceImpl implements boardService {
     }
 
     @Override
+    public void updateBoard(boardVo bvo) throws Exception {
+        boardDao.updateBoard(bvo);
+    }
+
+    @Override
 	public List<Map<String, Object>> listBoard() {
 		
 		List<Map<String, Object>> list = boardDao.listBoard();

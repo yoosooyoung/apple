@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -23,10 +22,12 @@ import com.example.demo.vo.boardVo;
 public class BoardController{
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
-	
-	@Autowired
-    private boardService boardSvc;
-	
+	private final boardService boardSvc;
+	public BoardController(boardService boardSvc) {
+		this.boardSvc = boardSvc;
+	}
+
+
 	/**
 	 * 글쓰기
 	 * @param bvo
@@ -49,10 +50,10 @@ public class BoardController{
 	@RequestMapping("/edit/{board_seq}")
 	@ResponseBody
 	public Map<String, String> boardEdit(boardVo bvo, FileVo fvo, HttpServletRequest request) throws Exception{
-		Map<String, String>result = new HashMap<>();
-		HttpSession session = request.getSession();
 		bvo.setUser_id("test");
-		//boardSvc.insertBoard(bvo, fvo);
+		Map<String, String> result = new HashMap<>();
+		HttpSession session = request.getSession();
+		boardSvc.updateBoard(bvo);
 		result.put("board_seq", bvo.getBoard_seq());
 		return result;
 	}

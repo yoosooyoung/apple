@@ -16,6 +16,8 @@ public interface boardService {
 
 	void deleteBoard(boardVo bvo) throws Exception;
 
+	void updateBoard(boardVo bvo) throws Exception;
+
 	List<Map<String, Object>> listBoard();
 
 }

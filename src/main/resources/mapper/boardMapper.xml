@@ -66,5 +66,16 @@
 	    	   #{picture_url}
 		       )	
 	</insert>
+
+	<update id="updateBoard" parameterType="com.example.demo.vo.boardVo">
+		UPDATE APPLE_BOARD
+   		   SET BOARD_TITLE = #{board_title}
+			 , BOARD_PRICE = #{board_price}
+			 , USER_ID = #{user_id}
+			 , BOARD_CONTENT = #{board_content}
+			 , BOARD_DATE = TO_CHAR(SYSDATE,'yyyy.mm.dd hh24:mi')
+         WHERE 1=1
+   		   AND BOARD_SEQ = #{board_seq}
+	</update>
 	
 </mapper>

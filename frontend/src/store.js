@@ -232,7 +232,7 @@ const store = createStore({
 
 
       window.location.href = "/";
-      //router.push("/"); 새로 고침에 안됨
+      //router.push("/"); 새로 고침이 안됨
       state.HeaderMenuIsShow = false;
     },
 
