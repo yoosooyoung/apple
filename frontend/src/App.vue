@@ -1,24 +1,34 @@
 <template>
   <div>
-    <div class="layouts" v-if="userInfo !== null">
-      <GlobalHeader />
-
-      <GlobalTabBar
-        v-if="
-          $route.path == '/' ||
-          $route.path == '/mypage' ||
-          $route.path == '/chat'
-        "
-      />
-
-      <FloatButton v-if="$route.path == '/'" />
-
-      <RouterView />
+    <!-- 1-1. /error일때 -->
+    <div v-if="$route.path == '/error'">
+      <ErrorView />
     </div>
-    <div v-else>
-      <Join v-if="$route.path == '/join'" />
 
-      <Login v-else />
+    <!-- 1-2. /error가 아닐때 -->
+    <div v-else>
+      <!-- 2-1. 로그인 시, -->
+      <div class="layouts" v-if="userInfo !== null">
+        <GlobalHeader />
+
+        <GlobalTabBar
+          v-if="
+            $route.path == '/' ||
+            $route.path == '/mypage' ||
+            $route.path == '/chat'
+          "
+        />
+
+        <FloatButton v-if="$route.path == '/'" />
+
+        <RouterView />
+      </div>
+      <!-- 2-1. 비로그인 시, -->
+      <div v-else>
+        <Join v-if="$route.path == '/join'" />
+
+        <Login v-else />
+      </div>
     </div>
   </div>
 </template>
@@ -31,6 +41,7 @@ import GlobalTabBar from "./components/GlobalTabBar.vue";
 import FloatButton from "./components/FloatButton.vue";
 import Join from "./components/Join.vue";
 import Login from "./components/Login.vue";
+import ErrorView from "./views/ErrorView.vue";
 
 export default {
   name: "App",
@@ -46,6 +57,7 @@ export default {
     FloatButton,
     Join,
     Login,
+    ErrorView,
   },
   computed: {
     ...mapState(["userInfo", "productListData"]),
