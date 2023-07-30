@@ -27,10 +27,17 @@ const store = createStore({
       joinName: "",
       joinEmail: "",
       joinAddress: "",
+      joinAddress2: "",
       joinProfile: "",
       joinProfileName: "",
 
       idCheck: "", // '' / null / rule / overlap / pass
+      pwCheck: "", // '' / null / rule/ pass
+      pwCheck2: "", // '' / null / rule/ pass
+      nameCheck: "", // '' / null / rule/ pass
+      emailCheck: "", // '' / null / rule/ pass
+      addressCheck: "", // '' / null /  pass
+      addressCheck2: "", // '' / null /  pass
     };
   },
   updated(store) {
@@ -87,19 +94,85 @@ const store = createStore({
     },
     getJoinPassword(state, value) {
       state.joinPassword = value;
+
+      // pw 유효성 체크
+      const validateId1 = /^[A-Za-z0-9]{6,20}$/;
+      const validateId2 = /[A-Za-z]/g;
+      const validateId3 = /[0-9]/g;
+
+      if (state.joinPassword === "") {
+        state.pwCheck = "null";
+      } else if (
+        !validateId1.test(state.joinPassword) ||
+        !validateId2.test(state.joinPassword) ||
+        !validateId3.test(state.joinPassword)
+      ) {
+        state.pwCheck = "rule";
+      } else {
+        state.pwCheck = "pass";
+      }
     },
     getJoinPassword2(state, value) {
       state.joinPassword2 = value;
+
+      if (state.joinPassword2 === "") {
+        state.pwCheck2 = "null";
+      } else if (state.joinPassword !== state.joinPassword2) {
+        state.pwCheck2 = "rule";
+      } else {
+        state.pwCheck2 = "pass";
+      }
     },
     getJoinName(state, value) {
       state.joinName = value;
+
+      // name 유효성 체크
+      const validateId1 = /^[ㄱ-ㅎ가-힣-A-Za-z0-9]{2,12}$/;
+
+      if (state.joinName === "") {
+        state.nameCheck = "null";
+      } else if (!validateId1.test(state.joinName)) {
+        state.nameCheck = "rule";
+      } else {
+        state.nameCheck = "pass";
+      }
     },
     getJoinEmail(state, value) {
       state.joinEmail = value;
+
+      // email 유효성 체크
+      const validateId1 = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      if (state.joinEmail === "") {
+        state.emailCheck = "null";
+      } else if (!validateId1.test(state.joinEmail)) {
+        state.emailCheck = "rule";
+      } else {
+        state.emailCheck = "pass";
+      }
     },
-    getJoinAddress(state, value) {
-      state.joinAddress = value;
-    },
+
+    // 주소 체크 ... 진행중
+    // getJoinAddress(state, value) {
+    //   state.joinAddress = value;
+
+    //   if (state.joinAddress === "") {
+    //     state.addressCheck = "null";
+    //   } else {
+    //     state.addressCheck = "pass";
+    //   }
+    // },
+
+    // getJoinAddress2(state, value) {
+    //   state.joinAddress2 = value;
+
+    //   if (state.joinAddress2 === "") {
+    //     state.addressCheck2 = "null";
+    //   } else {
+    //     state.addressCheck2 = "pass";
+    //   }
+    // },
+
     getJoinProfile(state, value) {
       if (value.files[0] == undefined) {
         state.joinProfile = "";
