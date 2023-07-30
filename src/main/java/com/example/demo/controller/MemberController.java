@@ -64,6 +64,30 @@ public class MemberController {
         return result;
     }
 	
+	
+	 /**
+     * 아이디체크
+     * @param model
+     * @param vo
+     * @return
+     */
+	@RequestMapping("/join/idCheck")
+	@ResponseBody
+	public Map<String, String> idCheck(Model model, memberVo vo) {
+    	Map<String, String>result = new HashMap<>();
+    	
+    	//아이디 중복 체크
+    	int checkId = memberSvc.checkId(vo);
+    	if(checkId > 0) {
+    		result.put("result", "1");
+    		return result;
+    	}else {
+    		result.put("result", "0");
+            return result;
+
+    	}
+    	
+    }
 	/**
      * 로그인체크
      * @param request
