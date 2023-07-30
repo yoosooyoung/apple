@@ -29,7 +29,7 @@ const store = createStore({
       joinAddress: "",
       joinProfile: "",
       joinProfileName: "",
-      idCheck: false,
+      idError: "", // null / rule / overlap / pass
     };
   },
   updated(store) {
@@ -46,9 +46,45 @@ const store = createStore({
       console.log(state.productListData);
     },
 
+    /* id 중복체크 */
+    idCheckOverlap(state) {
+      const frm = new FormData();
+      frm.append("user_id", state.joinId);
+
+      if (state.idError !== "null" && state.idError !== "rule") {
+        axios.post("/api/join/idCheck", frm).then(function (response) {
+          console.log(response);
+          if (response.data.result === "0") {
+            console.log("패스");
+            state.idError = "pass";
+          } else if (response.data.result === "1") {
+            console.log("중복임");
+            state.idError = "overlap";
+          }
+        });
+      }
+    },
+
     /* 회원가입 */
     getJoinId(state, value) {
       state.joinId = value;
+
+      // id 유효성 체크
+      const validateId1 = /^[A-Za-z0-9]{4,12}$/;
+      const validateId2 = /[A-Za-z]/g;
+      const validateId3 = /[0-9]/g;
+
+      if (state.joinId === "") {
+        state.idError = "null";
+      } else if (
+        !validateId1.test(state.joinId) ||
+        !validateId2.test(state.joinId) ||
+        !validateId3.test(state.joinId)
+      ) {
+        state.idError = "rule";
+      } else {
+        state.idError = "";
+      }
     },
     getJoinPassword(state, value) {
       state.joinPassword = value;
@@ -72,23 +108,6 @@ const store = createStore({
       } else {
         state.joinProfile = value.files[0];
         state.joinProfileName = value.files[0].name;
-      }
-    },
-
-    /* FRONT TO DO : 유효성 검사 */
-    checkId(state) {
-      // id 형식 검사
-      const validateId1 = /^[A-Za-z0-9]{4,12}$/;
-      const validateId2 = /[A-Za-z]/g;
-      const validateId3 = /[0-9]/g;
-      if (
-        validateId1.test(state.joinId) &&
-        validateId2.test(state.joinId) &&
-        validateId3.test(state.joinId)
-      ) {
-        console.log("사용가능한 아이디입니다.");
-      } else {
-        console.log("아이디 다시쓰셈");
       }
     },
 
@@ -229,7 +248,6 @@ const store = createStore({
         }
       }
       */
-
 
       window.location.href = "/";
       //router.push("/"); 새로 고침이 안됨

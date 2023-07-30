@@ -18,23 +18,29 @@
               maxlength="12"
               required
             />
-            <!-- FRONT TO DO :: 아이디 중복체크 분리
+
             <button
               type="button"
               class="button-secondary h50"
-              @click="checkId()"
+              @click="$store.commit('idCheckOverlap')"
             >
               중복체크
             </button>
-          --></div>
+          </div>
 
-          <!-- FRONT TO DO :: 유효성검사 
-          <p class="desc red">아이디를 입력해주세요</p>
-          <p class="desc red">
-            영문, 숫자를 포함한 4자 이상 20자 이하여야 합니다.
+          <!-- id 유효성검사 -->
+          <p class="desc red" v-if="$store.state.idError === 'null'">
+            아이디를 입력해주세요
           </p>
-          <p class="desc red">중복된 아이디입니다.</p>
-          <p class="desc blue">사용가능한 아이디입니다.</p> -->
+          <p class="desc red" v-if="$store.state.idError === 'rule'">
+            영문, 숫자를 포함한 4자 이상 12자 이하여야 합니다.
+          </p>
+          <p class="desc blue" v-if="$store.state.idError === 'pass'">
+            사용가능한 아이디입니다.
+          </p>
+          <p class="desc red" v-if="$store.state.idError === 'overlap'">
+            중복된 아이디입니다.
+          </p>
         </dd>
 
         <dt class="form-title">
