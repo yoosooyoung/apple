@@ -29,16 +29,16 @@
           </div>
 
           <!-- id 유효성검사 -->
-          <p class="desc red" v-if="$store.state.idError === 'null'">
+          <p class="desc red" v-if="$store.state.idCheck === 'null'">
             아이디를 입력해주세요
           </p>
-          <p class="desc red" v-if="$store.state.idError === 'rule'">
+          <p class="desc red" v-if="$store.state.idCheck === 'rule'">
             영문, 숫자를 포함한 4자 이상 12자 이하여야 합니다.
           </p>
-          <p class="desc blue" v-if="$store.state.idError === 'pass'">
+          <p class="desc blue" v-if="$store.state.idCheck === 'pass'">
             사용가능한 아이디입니다.
           </p>
-          <p class="desc red" v-if="$store.state.idError === 'overlap'">
+          <p class="desc red" v-if="$store.state.idCheck === 'overlap'">
             중복된 아이디입니다.
           </p>
         </dd>

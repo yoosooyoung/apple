@@ -29,7 +29,8 @@ const store = createStore({
       joinAddress: "",
       joinProfile: "",
       joinProfileName: "",
-      idError: "", // null / rule / overlap / pass
+
+      idCheck: "", // '' / null / rule / overlap / pass
     };
   },
   updated(store) {
@@ -51,15 +52,13 @@ const store = createStore({
       const frm = new FormData();
       frm.append("user_id", state.joinId);
 
-      if (state.idError !== "null" && state.idError !== "rule") {
+      if (state.idCheck !== "null" && state.idCheck !== "rule") {
         axios.post("/api/join/idCheck", frm).then(function (response) {
           console.log(response);
           if (response.data.result === "0") {
-            console.log("패스");
-            state.idError = "pass";
+            state.idCheck = "pass";
           } else if (response.data.result === "1") {
-            console.log("중복임");
-            state.idError = "overlap";
+            state.idCheck = "overlap";
           }
         });
       }
@@ -75,15 +74,15 @@ const store = createStore({
       const validateId3 = /[0-9]/g;
 
       if (state.joinId === "") {
-        state.idError = "null";
+        state.idCheck = "null";
       } else if (
         !validateId1.test(state.joinId) ||
         !validateId2.test(state.joinId) ||
         !validateId3.test(state.joinId)
       ) {
-        state.idError = "rule";
+        state.idCheck = "rule";
       } else {
-        state.idError = "";
+        state.idCheck = "";
       }
     },
     getJoinPassword(state, value) {
