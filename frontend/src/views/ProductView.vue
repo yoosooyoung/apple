@@ -35,6 +35,7 @@ import ProductCta from "@/components/ProductCta.vue";
 import ProductCarousel from "@/components/ProductCarousel.vue";
 import ProductImgModal from "@/components/ProductImgModal.vue";
 import { mapState } from "vuex";
+import axios from "axios";
 
 export default {
   name: "ProductView",
@@ -42,6 +43,7 @@ export default {
     return {
       data: {},
       productImgModalIsShow: false,
+      board_seq: null,
     };
   },
   components: {
@@ -63,13 +65,14 @@ export default {
     },
   },
   mounted() {
-    // 사용할 데이터만 넘기기
-    const route = useRoute();
-    this.productListData.find((item, idx) => {
-      if (item.id === Number(route.params.id)) {
-        this.data = this.productListData[idx];
-      }
-    });
+    this.board_seq = this.$route.params.id;
+    axios.get(`/api/board/view/${this.board_seq}`)
+        .then(response => {
+
+        })
+        .catch(error => {
+          console.error("Error fetching product:", error);
+        });
   },
 };
 </script>

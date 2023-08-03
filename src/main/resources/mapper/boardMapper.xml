@@ -53,6 +53,15 @@
 	            ON A.BOARD_SEQ = B.BOARD_SEQ
 	      ORDER BY A.BOARD_SEQ DESC
 	</select>
+
+	<!-- 글 상세 -->
+	<select id="viewBoard" parameterType="String" resultType="hashmap" >
+		SELECT A.*, B.PICTURE_URL
+		  FROM APPLE_BOARD A
+				 LEFT OUTER JOIN APPLE_PICTURE B
+								 ON A.BOARD_SEQ = B.BOARD_SEQ
+		 WHERE A.BOARD_SEQ = #{board_seq}
+	</select>
 	
 	<!-- 파일삽입 -->
 	<insert id="insertFile" parameterType="com.example.demo.vo.FileVo" >
@@ -65,6 +74,13 @@
 	    	   #{board_seq},
 	    	   #{picture_url}
 		       )	
+	</insert>
+
+	<!-- 파일삭제 -->
+	<insert id="deleteFile" parameterType="com.example.demo.vo.FileVo" >
+		DELETE FROM APPLE_PICTURE
+         WHERE 1=1
+           AND BOARD_SEQ = #{board_seq}
 	</insert>
 
 	<update id="updateBoard" parameterType="com.example.demo.vo.boardVo">

@@ -103,4 +103,17 @@ public class BoardController{
         return result;
     }
 
+	/**
+	 * 글 상세
+	 * @param board_seq
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/view/{board_seq}")
+	@ResponseBody
+	public Map<String, Object> boardView(@PathVariable String board_seq) throws Exception{
+		Map<String, Object> post = boardSvc.viewBoard(board_seq);
+		return post;
+	}
+
 }

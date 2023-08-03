@@ -20,4 +20,6 @@ public interface boardService {
 
 	List<Map<String, Object>> listBoard();
 
+	Map<String, Object> viewBoard(String board_seq);
+
 }

@@ -27,6 +27,7 @@ public class boardServiceImpl implements boardService {
 	
 	@Override
 	public void uploadFile(MultipartHttpServletRequest multiRequest, FileVo fvo) throws Exception{
+        boardDao.deleteFile(fvo);
 		 // 파일 정보를 값으로 하는 Map을 가져온다.
         Map<String, MultipartFile> files = multiRequest.getFileMap();
         // files.entrySet()의 요소를 가져온다.
@@ -93,5 +94,11 @@ public class boardServiceImpl implements boardService {
 		List<Map<String, Object>> list = boardDao.listBoard();
 		return list;
 	}
+
+    @Override
+    public Map<String, Object> viewBoard(String board_seq) {
+        Map<String, Object> post = boardDao.viewBoard(board_seq);
+        return post;
+    }
 }
 	

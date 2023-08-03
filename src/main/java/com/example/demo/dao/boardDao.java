@@ -15,10 +15,14 @@ public interface boardDao {
 	void insertBoard(boardVo bvo);
 
 	void insertFile(FileVo fvo);
+
+	void deleteFile(FileVo fvo);
 	
 	String getBoardSeq();
 
 	List<Map<String, Object>> listBoard();
+
+	Map<String, Object> viewBoard(String board_seq);
 
     void deleteBoard(boardVo bvo);
 

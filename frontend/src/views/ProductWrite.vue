@@ -208,10 +208,16 @@ export default {
 
         let frm = new FormData();
         frm = document.getElementById("formData");
+        var photoFile = document.getElementById("buttonAttach");
 
         axios.post('/api/board/edit/'+this.id, frm).then(function (res) {
           console.log(res);
           // 뷰 페이지가 존재하지 않아 우선 index 페이지로 설정
+          frm.append("board_seq",res.data.board_seq);
+          frm.append("buttonAttach", photoFile.files[0]);
+          axios.post('/api/board/upload/files', frm, {headers:{
+              'Content-Type':'multipart/form-data'}}).then(function (response) {
+          });
           this.$router.push(`/`);
           this.toggleHeaderMenu();
         });
