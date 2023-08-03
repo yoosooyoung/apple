@@ -99,7 +99,7 @@
       <ul class="left-menu">
         <li>
           <button arial-lable="내 동네" class="button-local">
-            중화동
+            {{userInfo.location}}
             <i class="xi-angle-down"></i>
           </button>
         </li>

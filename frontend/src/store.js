@@ -179,21 +179,30 @@ const store = createStore({
       } else if (state.loginPW == "") {
         alert("비밀번호를 입력해주세요.");
       } else {
-        var loginForm = document.getElementById("loginForm");
-
-        axios.post("/api/signin/check", loginForm).then(function (response) {
-          if (response.data.result == "success") {
-            state.userInfo = {
-              // FRONT TO DO : 데이터 추가 완료시, USER 데이터 업데이트해주기
-              id: response.data.member.user_id,
-              nickName: response.data.member.nick_name,
-              image: response.data.member.user_image,
-              location: response.data.member.user_location,
-            };
-            sessionStorage.setItem("user_info", JSON.stringify(state.userInfo));
-          } else if (response.data.result == 0 || response.data.result == 1) {
-            alert("로그인정보가 일치하지 않습니다. 다시한번 확인해주세요.");
-          }
+        var loginForm = new FormData();
+        loginForm.append("user_id", state.loginId);
+        loginForm.append("user_pw", state.loginPW);
+        navigator.geolocation.getCurrentPosition(function (position) {
+          loginForm.append("latitude", position.coords.latitude);
+          loginForm.append("longitude", position.coords.longitude);
+          console.log(loginForm);
+          axios.post("/api/signin/check", loginForm).then(function (response) {
+            if (response.data.result == "success") {
+              state.userInfo = {
+                // FRONT TO DO : 데이터 추가 완료시, USER 데이터 업데이트해주기
+                id: response.data.member.user_id,
+                nickName: response.data.member.nick_name,
+                image: response.data.member.user_image,
+                location: response.data.address,
+              };
+              sessionStorage.setItem(
+                "user_info",
+                JSON.stringify(state.userInfo)
+              );
+            } else if (response.data.result == 0 || response.data.result == 1) {
+              alert("로그인정보가 일치하지 않습니다. 다시한번 확인해주세요.");
+            }
+          });
         });
       }
     },
