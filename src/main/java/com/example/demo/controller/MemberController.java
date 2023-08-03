@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.MapApi;
 import com.example.demo.service.memberService;
 import com.example.demo.vo.memberVo;
 
@@ -103,7 +103,7 @@ public class MemberController {
          Map<String, Object> sess = new HashMap<String, Object>();
          String rawPw = "";
          String encodePw = "";
-
+         
          memberVo lvo = memberSvc.memberLogin(member);
 
          if (lvo != null) {  // 일치하는 아이디 존재시
@@ -115,6 +115,8 @@ public class MemberController {
                  session.setAttribute("member", lvo);    // session에 사용자 정보 저장
                  sess.put("member",lvo);
                  sess.put("result", "success");
+                 String address = MapApi.getAddress(member.getLatitude(), member.getLongitude());
+                 sess.put("address", address);
                  return sess;
              } else {
              	sess.put("result", 0);

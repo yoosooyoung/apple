@@ -7,8 +7,22 @@ public class memberVo {
 	private String user_join;//가입시간
 	private String nick_name;//사용자이름
 	private String user_email;//사용자이메일
+	private String latitude; //위도
+	private String longitude; //경도
 	
 	
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
