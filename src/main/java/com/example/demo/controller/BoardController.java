@@ -41,7 +41,6 @@ public class BoardController{
 	public Map<String, String> boardWrite(boardVo bvo, FileVo fvo, HttpServletRequest request) throws Exception{
     	Map<String, String>result = new HashMap<>();
     	HttpSession session = request.getSession();
-    	bvo.setUser_id("test");
     	boardSvc.insertBoard(bvo, fvo);
     	result.put("board_seq", bvo.getBoard_seq());
         return result;
