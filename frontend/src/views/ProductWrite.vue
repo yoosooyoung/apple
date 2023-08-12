@@ -137,9 +137,7 @@ export default {
 				this.defineData();
 
 				// 게시글 생성
-				var frm = new FormData();
 				var photoFile = document.getElementById('buttonAttach');
-				frm = document.getElementById('formData');
 
 				axios.post('/api/board/write', JSON.stringify(this.definedData),{
           headers:{
