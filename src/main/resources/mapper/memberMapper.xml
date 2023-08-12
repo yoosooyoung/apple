@@ -36,4 +36,13 @@
 		  FROM APPLE_MEMBER
 		 WHERE USER_ID = #{user_id}	
 	</select>
+	
+	<!-- 회원 정보수정 -->
+	<update id="updateMember" parameterType="com.example.demo.vo.memberVo">
+		UPDATE APPLE_MEMBER
+		   SET NICK_NAME = #{nick_name},
+		       USER_IMAGE = #{user_image},
+		       USER_EMAIL = #{user_email}
+		 WHERE USER_ID = #{user_id}
+	</update>
 </mapper>

@@ -146,6 +146,21 @@ public class MemberController {
         return "redirect:/";        
         
     }    
+    
+	@RequestMapping("/join/update")
+	@ResponseBody
+	public Map<String, String> updateMember(Model model, memberVo vo) {
+    	Map<String, String>result = new HashMap<>();
+    	
+    	try {
+        	memberSvc.updateMember(vo);
+
+		} catch (Exception e) {
+			
+		}
+    	
+    	return result;
+    }
 	
 	
 }

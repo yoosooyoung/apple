@@ -13,4 +13,6 @@ public interface memberDao {
 
 	int checkId(memberVo vo);
 
+	void updateMember(memberVo vo);
+
 }
