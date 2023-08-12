@@ -12,14 +12,16 @@
 			   USER_PW,
 			   USER_JOIN,
 			   NICK_NAME,
-			   USER_EMAIL
+			   USER_EMAIL,
+			   USER_IMAGE
 			   )
 	    VALUES(
 	    	   #{user_id},
 	    	   #{user_pw}, 
 	    	   TO_CHAR(SYSDATE,'yyyy.mm.dd hh24:mi'),
 		       #{nick_name}, 
-		       #{user_email}
+		       #{user_email},
+		       #{user_image}
 		       )	
 	</insert>
 	
@@ -42,7 +44,8 @@
 		UPDATE APPLE_MEMBER
 		   SET NICK_NAME = #{nick_name},
 		       USER_IMAGE = #{user_image},
-		       USER_EMAIL = #{user_email}
+		       USER_EMAIL = #{user_email},
+		       USER_PW = #{user_pw}
 		 WHERE USER_ID = #{user_id}
 	</update>
 </mapper>

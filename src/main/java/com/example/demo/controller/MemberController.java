@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.MapApi;
@@ -41,7 +42,7 @@ public class MemberController {
      */
 	@RequestMapping("/join")
 	@ResponseBody
-	public Map<String, String> signUpCheck(Model model, memberVo vo) {
+	public Map<String, String> signUpCheck(MultipartHttpServletRequest multiRequest,Model model, memberVo vo) throws Exception{
     	Map<String, String>result = new HashMap<>();
     	
     	//아이디 중복 체크
@@ -55,7 +56,7 @@ public class MemberController {
         	//패스워드암호화진행
         	vo.setUser_pw(pwEncoder.encode(vo.getUser_pw()));
         	//회원가입서비스 실행
-        	memberSvc.insertMember(vo);
+        	memberSvc.insertMember(multiRequest,vo);
         	result.put("result", "success");
 		} catch (Exception e) {
 			result.put("result", "1");
@@ -151,7 +152,8 @@ public class MemberController {
 	@ResponseBody
 	public Map<String, String> updateMember(Model model, memberVo vo) {
     	Map<String, String>result = new HashMap<>();
-    	
+    	//패스워드암호화진행
+    	vo.setUser_pw(pwEncoder.encode(vo.getUser_pw()));
     	try {
         	memberSvc.updateMember(vo);
 

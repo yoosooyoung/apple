@@ -9,7 +9,7 @@ public class memberVo {
 	private String user_email;//사용자이메일
 	private String latitude; //위도
 	private String longitude; //경도
-	
+	private String user_image;//사용자 사진
 	
 	public String getLatitude() {
 		return latitude;
@@ -54,7 +54,11 @@ public class memberVo {
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
 	}
-	
-	
+	public String getUser_image() {
+		return user_image;
+	}
+	public void setUser_image(String user_image) {
+		this.user_image = user_image;
+	}
 	
 }
