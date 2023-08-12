@@ -47,11 +47,9 @@ const store = createStore({
   mutations: {
     // state 변경은 mutation에서
 
-    /* 상품리스트 업데이트 */
+    /* FRONT TO DO : 상품리스트 업데이트 - API 붙이고, 문제 없으면 지우기 */
     updateProductList(state, response) {
       state.productListData = response.data.list;
-      console.log("updateProductList");
-      console.log(state.productListData);
     },
 
     /* id 중복체크 */

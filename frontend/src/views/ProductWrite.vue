@@ -25,8 +25,8 @@
 import WriteHeader from "../components/WriteHeader.vue";
 import AttachPhoto from "../components/AttachPhoto.vue";
 import InputGroup from "../components/InputGroup.vue";
-import { mapMutations, mapState } from "vuex";
-import axios from 'axios';
+import { mapMutations, mapState, mapActions } from "vuex";
+import axios from "axios";
 
 export default {
   name: "ProductWrite",
@@ -52,7 +52,8 @@ export default {
     ...mapState(["userInfo", "productListData"]),
   },
   methods: {
-    ...mapMutations(["toggleHeaderMenu", "updateProductList"]),
+    ...mapMutations(["toggleHeaderMenu"]),
+    ...mapActions(["getProductList"]),
 
     getTitle(value) {
       this.title = value;
@@ -117,19 +118,8 @@ export default {
       };
     },
 
-    // 작성된 데이터 저장 (완료버튼 클릭시)
+    // 게시글 생성 (완료버튼 클릭시)
     saveData() {
-      let dataArr = [];
-      let oldArr = this.productListData;
-
-      // localStorage상에 productListData 유무 체크
-      if (oldArr === null) {
-        oldArr = [];
-        console.log("oldArr1", oldArr);
-      } else {
-        dataArr = oldArr;
-      }
-
       // 필수값 처리
       if (this.imgUrlArrayLength == 0) {
         alert("사진을 첨부해주세요.");
@@ -143,26 +133,25 @@ export default {
         // 새롭게 생성된 게시글 데이터 정의
         this.defineData();
 
-        // 기존 배열에 추가
-        dataArr.unshift(this.definedData);
-        
+        // 게시글 생성
         var frm = new FormData();
         var photoFile = document.getElementById("buttonAttach");
-        frm=document.getElementById("formData");
-        // localStorage에 저장
-        window.localStorage.setItem("productListData", JSON.stringify(dataArr));
-       
-		axios.post('/api/board/write', frm).then(function (res) {
-       var frm = new FormData();
-       console.log(res);
-       frm.append("board_seq",res.data.board_seq);
-       frm.append("buttonAttach", photoFile.files[0]);
-			 axios.post('/api/board/upload/files', frm, {headers:{
-	        'Content-Type':'multipart/form-data'}}).then(function (response) {
-			});
-		});
-        this.updateProductList();
-        this.$router.push("/");
+        frm = document.getElementById("formData");
+
+        axios.post("/api/board/write", frm).then((res) => {
+          var frm = new FormData();
+          frm.append("board_seq", res.data.board_seq);
+          frm.append("buttonAttach", photoFile.files[0]);
+
+          // 사진첨부
+          axios.post("/api/board/upload/files", frm, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          this.getProductList();
+          this.$router.push("/");
+        });
       }
     },
 
@@ -205,19 +194,22 @@ export default {
       } else if (this.content == "") {
         alert("내용을 입력해주세요.");
       } else {
-
         let frm = new FormData();
         frm = document.getElementById("formData");
         var photoFile = document.getElementById("buttonAttach");
 
-        axios.post('/api/board/edit/'+this.id, frm).then(function (res) {
+        axios.post("/api/board/edit/" + this.id, frm).then(function (res) {
           console.log(res);
           // 뷰 페이지가 존재하지 않아 우선 index 페이지로 설정
-          frm.append("board_seq",res.data.board_seq);
+          frm.append("board_seq", res.data.board_seq);
           frm.append("buttonAttach", photoFile.files[0]);
-          axios.post('/api/board/upload/files', frm, {headers:{
-              'Content-Type':'multipart/form-data'}}).then(function (response) {
-          });
+          axios
+            .post("/api/board/upload/files", frm, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then(function (response) {});
           this.$router.push(`/`);
           this.toggleHeaderMenu();
         });
@@ -231,7 +223,6 @@ export default {
         window.localStorage.setItem("productListData", JSON.stringify(dataArr));
          */
         // url변경 및 수정하기 팝업 제거
-
       }
     },
   },
@@ -243,12 +234,12 @@ export default {
       this.getCustomData();
     } else {
       // 데이터의 id붙이기
-      if (this.productListData === null) {
-        this.id = 0;
-      } else {
-        const lastId = this.productListData[0].id;
-        this.id = lastId + 1;
-      }
+      // if (this.productListData === null) {
+      //   this.id = 0;
+      // } else {
+      //   const lastId = this.productListData[0].id;
+      //   this.id = lastId + 1;
+      // }
     }
   },
 };
