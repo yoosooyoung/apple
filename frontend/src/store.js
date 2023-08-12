@@ -38,10 +38,19 @@ const store = createStore({
       emailCheck: "", // '' / null / rule/ pass
       addressCheck: "", // '' / null /  pass
       addressCheck2: "", // '' / null /  pass
+
+      /* 정보수정 */
+      newUserInfo: "",
+      editUserImage: JSON.parse(window.sessionStorage.getItem("user_info"))
+        .image,
+      editUserNickName: JSON.parse(window.sessionStorage.getItem("user_info"))
+        .nickName,
+      editUserEmail: JSON.parse(window.sessionStorage.getItem("user_info"))
+        .email,
+      editUserPwOri: "",
+      editUserPwNew: "",
+      editUserPwNew2: "",
     };
-  },
-  updated(store) {
-    store.dispatch("dispatch");
   },
   computed: {},
   mutations: {
@@ -191,12 +200,18 @@ const store = createStore({
                 id: response.data.member.user_id,
                 nickName: response.data.member.nick_name,
                 image: response.data.member.user_image,
+                email: response.data.member.user_email,
                 location: response.data.address,
               };
               sessionStorage.setItem(
                 "user_info",
                 JSON.stringify(state.userInfo)
               );
+
+              // 편집데이터 넣어주기
+              state.editUserEmail = state.userInfo.email;
+              state.editUserImage = state.userInfo.image;
+              state.editUserNickName = state.userInfo.nickName;
             } else if (response.data.result == 0 || response.data.result == 1) {
               alert("로그인정보가 일치하지 않습니다. 다시한번 확인해주세요.");
             }
@@ -217,20 +232,49 @@ const store = createStore({
       if (target != undefined) {
         const file = target.files[0];
         const url = URL.createObjectURL(file);
-        state.userInfo.image = url;
+        state.editUserImage = url;
       }
     },
     getUserNickName(state, value) {
-      state.userInfo.nickName = value;
+      state.editUserNickName = value;
+    },
+    getUserEmail(state, value) {
+      state.editUserEmail = value;
+    },
+    getUserPwOri(state, value) {
+      state.editUserPwOri = value;
+    },
+    getUserPwNew(state, value) {
+      state.editUserPwNew = value;
+    },
+    getUserPwNew2(state, value) {
+      state.editUserPwNew2 = value;
+    },
+    defineNewInfo(state) {
+      this.newUserInfo = {
+        nickName: state.editUserNickName,
+        image: state.editUserImage,
+        email: state.editUserEmail,
+        editPwOri: state.editPwOri,
+        editPwNew: state.editPwNew,
+      };
     },
     saveMyInfo(state) {
-      if (state.userInfo.nickName == "") {
+      if (state.editUserNickName == "") {
         alert("닉네임을 입력해주세요");
+      } else if (state.editPwOri === "") {
+        alert("기존 비밀번호를 입력해주세요");
+      } else if (state.editPwNew === "") {
+        alert("새 비밀번호를 입력해주세요");
+      } else if (state.editPwNew2 === "") {
+        alert("새 비밀번호 확인을 해주세요");
+      } else if (state.editPwNew === state.editPwNew2) {
+        alert("비밀번호가 일치하지 않습니다");
       } else {
-        window.sessionStorage.setItem(
-          "userInfo",
-          JSON.stringify(state.userInfo)
-        );
+        // 정보수정 데이터들 - API개발시, 해당 데이터 보내기
+        state.defineNewInfo();
+        console.log(state.newUserInfo);
+
         alert("정보수정이 완료되었습니다.");
         router.push("/mypage");
       }

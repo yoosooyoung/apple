@@ -673,49 +673,50 @@ form {
   display: block;
   width: 100%; }
 
-.form-group .form-title {
+.form-group {
   display: block;
-  width: 100%;
-  font-size: 17px;
-  letter-spacing: -0.04em;
-  margin-bottom: 16px;
-  font-weight: 500; }
-
-.form-group .required::after {
-  content: "*";
-  display: inline-block;
-  margin-left: 4px;
-  color: #f86d7d; }
-
-.form-group .form-data {
-  display: block;
-  width: 100%;
-  font-size: 17px;
-  margin-bottom: 30px; }
-  .form-group .form-data .input-div {
-    display: flex; }
-    .form-group .form-data .input-div button {
-      flex-shrink: 0;
-      width: 86px;
-      padding: 0 10px;
-      font-size: 14px;
-      font-weight: 400;
-      margin-left: 4px; }
-  .form-group .form-data .profile-div {
-    display: flex;
-    align-items: center; }
-    .form-group .form-data .profile-div input[type="file"] {
-      display: none; }
-    .form-group .form-data .profile-div .file-name {
-      margin-left: 10px; }
-  .form-group .form-data .desc {
-    margin-top: 8px;
+  width: 100%; }
+  .form-group .form-title {
+    display: block;
+    width: 100%;
+    font-size: 17px;
     letter-spacing: -0.04em;
-    font-size: 14px; }
-    .form-group .form-data .desc.red {
-      color: red; }
-    .form-group .form-data .desc.blue {
-      color: #3da5f5; }
+    margin-bottom: 16px;
+    font-weight: 500; }
+  .form-group .required::after {
+    content: "*";
+    display: inline-block;
+    margin-left: 4px;
+    color: #f86d7d; }
+  .form-group .form-data {
+    display: block;
+    width: 100%;
+    font-size: 17px;
+    margin-bottom: 30px; }
+    .form-group .form-data .input-div {
+      display: flex; }
+      .form-group .form-data .input-div button {
+        flex-shrink: 0;
+        width: 86px;
+        padding: 0 10px;
+        font-size: 14px;
+        font-weight: 400;
+        margin-left: 4px; }
+    .form-group .form-data .profile-div {
+      display: flex;
+      align-items: center; }
+      .form-group .form-data .profile-div input[type="file"] {
+        display: none; }
+      .form-group .form-data .profile-div .file-name {
+        margin-left: 10px; }
+    .form-group .form-data .desc {
+      margin-top: 8px;
+      letter-spacing: -0.04em;
+      font-size: 14px; }
+      .form-group .form-data .desc.red {
+        color: red; }
+      .form-group .form-data .desc.blue {
+        color: #3da5f5; }
 
 .label-title {
   display: block;
