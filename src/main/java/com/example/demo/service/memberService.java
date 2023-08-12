@@ -10,4 +10,6 @@ public interface memberService {
 
 	int checkId(memberVo vo);
 
+	void updateMember(memberVo vo);
+
 }

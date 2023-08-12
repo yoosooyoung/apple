@@ -26,4 +26,9 @@ public class memberServiceImpl implements memberService {
 	public int checkId(memberVo vo) {
 		return memberDao.checkId(vo);
 	}
+
+	@Override
+	public void updateMember(memberVo vo) {
+		memberDao.updateMember(vo);
+	}
 }
