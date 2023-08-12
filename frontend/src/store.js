@@ -419,7 +419,11 @@ const store = createStore({
         context.state.nameCheck === "pass" &&
         context.state.emailCheck === "pass"
       ) {
-        var joinForm = document.getElementById("joinForm");
+		
+       	var frm = new FormData();
+        frm = document.getElementById("joinForm");
+        var photoFile = document.getElementById("profileImg");
+        frm.append("profileImg", photoFile.files[0]);
         axios
           .post("/api/join", joinForm)
           .then(function (response) {
