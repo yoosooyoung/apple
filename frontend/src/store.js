@@ -41,12 +41,18 @@ const store = createStore({
 
       /* 정보수정 */
       newUserInfo: "",
-      editUserImage: JSON.parse(window.sessionStorage.getItem("user_info"))
-        .image,
-      editUserNickName: JSON.parse(window.sessionStorage.getItem("user_info"))
-        .nickName,
-      editUserEmail: JSON.parse(window.sessionStorage.getItem("user_info"))
-        .email,
+      editUserImage:
+        window.sessionStorage.getItem("user_info") === null
+          ? ""
+          : JSON.parse(window.sessionStorage.getItem("user_info")).image,
+      editUserNickName:
+        window.sessionStorage.getItem("user_info") === null
+          ? ""
+          : JSON.parse(window.sessionStorage.getItem("user_info")).nickName,
+      editUserEmail:
+        window.sessionStorage.getItem("user_info") === null
+          ? ""
+          : JSON.parse(window.sessionStorage.getItem("user_info")).email,
       editUserPwOri: "",
       editUserPwNew: "",
       editUserPwNew2: "",
@@ -56,7 +62,7 @@ const store = createStore({
   mutations: {
     // state 변경은 mutation에서
 
-    /* FRONT TO DO : 상품리스트 업데이트 - API 붙이고, 문제 없으면 지우기 */
+    /* 로딩시 리스트 화면 reset */
     updateProductList(state, response) {
       state.productListData = response.data.list;
     },
@@ -192,7 +198,6 @@ const store = createStore({
         navigator.geolocation.getCurrentPosition(function (position) {
           loginForm.append("latitude", position.coords.latitude);
           loginForm.append("longitude", position.coords.longitude);
-          console.log(loginForm);
           axios.post("/api/signin/check", loginForm).then(function (response) {
             if (response.data.result == "success") {
               state.userInfo = {
@@ -463,13 +468,12 @@ const store = createStore({
         context.state.nameCheck === "pass" &&
         context.state.emailCheck === "pass"
       ) {
-		
-       	var frm = new FormData();
+        var frm = new FormData();
         frm = document.getElementById("joinForm");
         var photoFile = document.getElementById("profileImg");
         frm.append("profileImg", photoFile.files[0]);
         axios
-          .post("/api/join", joinForm)
+          .post("/api/join", frm)
           .then(function (response) {
             if (response.data.result === "success") {
               alert("회원가입이 완료되었습니다");
