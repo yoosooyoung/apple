@@ -162,6 +162,26 @@ export default {
 
 		// 수정하기 데이터 불러오기
 		getCustomData() {
+
+      this.board_seq = this.$route.params.id;
+      axios.get(`/api/board/view/${this.board_seq}`)
+          .then(response => {
+            console.log("ProductWrite getCustomData success:");
+            let boardView = response.data;
+            this.title = boardView.BOARD_TITLE;
+            this.price = boardView.BOARD_PRICE;
+            this.content = boardView.BOARD_CONTENT;
+            /*
+            this.imgUrlArray = boardView.PICTURE_URL;
+            this.imgUrlArrayLength = boardView.PICTURE_URL;
+
+             */
+          })
+          .catch(error => {
+            console.error("Error fetching product:", error);
+          });
+
+      /*
 			let customList = this.productListData;
 
 			const target = customList.find((item) => {
@@ -177,6 +197,8 @@ export default {
 			this.content = customList[this.customIdx].content;
 			this.imgUrlArray = customList[this.customIdx].productImages;
 			this.imgUrlArrayLength = customList[this.customIdx].productImages;
+			*/
+
 		},
 
 		// 수정하기
