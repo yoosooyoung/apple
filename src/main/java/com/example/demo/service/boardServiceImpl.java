@@ -100,5 +100,11 @@ public class boardServiceImpl implements boardService {
         Map<String, Object> post = boardDao.viewBoard(board_seq);
         return post;
     }
+
+    @Override
+    public List<String> viewPictureBoard(String board_seq) {
+        List<String> pictures = boardDao.viewPictureBoard(board_seq);
+        return pictures;
+    }
 }
 	

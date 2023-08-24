@@ -22,4 +22,6 @@ public interface boardService {
 
 	Map<String, Object> viewBoard(String board_seq);
 
+	List<String> viewPictureBoard(String board_seq);
+
 }

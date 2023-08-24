@@ -167,20 +167,35 @@ export default {
       axios.get(`/api/board/view/${this.board_seq}`)
           .then(response => {
             console.log("ProductWrite getCustomData success:");
-            let boardView = response.data;
+            console.log(response.data);
+
+            let boardView = response.data.board;
+            let imgList = response.data.pictures
+
             this.title = boardView.BOARD_TITLE;
             this.price = boardView.BOARD_PRICE;
             this.content = boardView.BOARD_CONTENT;
-            /*
-            this.imgUrlArray = boardView.PICTURE_URL;
-            this.imgUrlArrayLength = boardView.PICTURE_URL;
-
-             */
+            // 이 형태로 표시되어야함 ['/img/장발장.9332645d.png']
+            // imgList == [장발장.png]
+            this.imgUrlArray = imgList;
+            this.imgUrlArrayLength = imgList.length;
           })
           .catch(error => {
             console.error("Error fetching product:", error);
           });
 
+      /*
+      axios.get(`/api/board/view/picture/${this.board_seq}`)
+          .then(response => {
+            console.log("ProductWrite getCustomData success:");
+
+          })
+          .catch(error => {
+            console.error("Error fetching product:", error);
+          });
+
+
+       */
       /*
 			let customList = this.productListData;
 

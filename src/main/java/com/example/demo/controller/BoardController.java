@@ -120,6 +120,23 @@ public class BoardController{
 	@RequestMapping("/view/{board_seq}")
 	@ResponseBody
 	public Map<String, Object> boardView(@PathVariable String board_seq) throws Exception{
+		Map<String, Object> json = new HashMap<>();
+		Map<String, Object> post = boardSvc.viewBoard(board_seq);
+		List<String> pictures = boardSvc.viewPictureBoard(board_seq);
+		json.put("board", post);
+		json.put("pictures", pictures);
+		return json;
+	}
+
+	/**
+	 * 사진 상세
+	 * @param board_seq
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/view/picture/{board_seq}")
+	@ResponseBody
+	public Map<String, Object> boardPictureView(@PathVariable String board_seq) throws Exception{
 		Map<String, Object> post = boardSvc.viewBoard(board_seq);
 		return post;
 	}

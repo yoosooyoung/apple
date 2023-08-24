@@ -62,7 +62,14 @@
 								 ON A.BOARD_SEQ = B.BOARD_SEQ
 		 WHERE A.BOARD_SEQ = #{board_seq}
 	</select>
-	
+
+	<!-- 이미지 상세 -->
+	<select id="viewPictureBoard" parameterType="String" resultType="String" >
+		SELECT PICTURE_URL
+		FROM APPLE_PICTURE
+		WHERE BOARD_SEQ = #{board_seq}
+	</select>
+
 	<!-- 파일삽입 -->
 	<insert id="insertFile" parameterType="com.example.demo.vo.FileVo" >
     	INSERT INTO 

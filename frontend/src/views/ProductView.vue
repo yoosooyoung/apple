@@ -66,9 +66,10 @@ export default {
   },
   mounted() {
     this.board_seq = this.$route.params.id;
+
     axios.get(`/api/board/view/${this.board_seq}`)
         .then(response => {
-
+          console.log("success:");
         })
         .catch(error => {
           console.error("Error fetching product:", error);
