@@ -66,8 +66,7 @@ export default {
     this.board_seq = this.$route.params.id;
 
     getOneBoardRequest(this.board_seq)
-      .then(async (response) => {
-        console.log(response);
+      .then((response) => {
         this.productData = response.data.board;
         this.productImages = response.data.pictures;
       })
