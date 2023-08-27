@@ -11,8 +11,10 @@
         v-for="(item, idx) in productImages"
         :key="idx"
         @click="$emit('openModal')"
-        ><img :src="require(`../upload/${item}`)" alt=""
-      /></swiper-slide>
+      >
+        <!-- <img :src="require(`/upload/${item}`)" alt=""
+      /> -->
+      </swiper-slide>
     </swiper>
   </div>
 </template>
@@ -35,6 +37,9 @@ export default {
   props: {
     productImages: Array,
     productImgModalIsShow: Boolean,
+  },
+  mounted() {
+    console.log("22", this.productImages, this.productImgModalIsShow);
   },
   setup() {
     const onSwiper = () => {};

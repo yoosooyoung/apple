@@ -29,22 +29,22 @@
 </template>
 
 <script>
+import { getOneBoardRequest } from "../apis/board";
+
 import UserInfo from "@/components/UserInfo.vue";
 import ProductInfo from "@/components/ProductInfo.vue";
 import ProductCta from "@/components/ProductCta.vue";
 import ProductCarousel from "@/components/ProductCarousel.vue";
 import ProductImgModal from "@/components/ProductImgModal.vue";
-import { mapState } from "vuex";
-import { getOneBoardRequest } from "../apis/board";
 
 export default {
   name: "ProductView",
   data() {
     return {
-      productData: {},
-      productImages: [],
       productImgModalIsShow: false,
       board_seq: null,
+      productData: {},
+      productImages: [""],
     };
   },
   components: {
@@ -53,9 +53,6 @@ export default {
     ProductCta,
     ProductCarousel,
     ProductImgModal,
-  },
-  computed: {
-    ...mapState(["productListData"]),
   },
   methods: {
     openModal() {
@@ -69,9 +66,12 @@ export default {
     this.board_seq = this.$route.params.id;
 
     getOneBoardRequest(this.board_seq)
-      .then((response) => {
+      .then(async (response) => {
+        console.log(response);
         this.productData = response.data.board;
-        this.productImages = response.data.pictures;
+        this.productImages = [...response.data.pictures];
+        // FRONT TO DO :: ProudctCarousel.vue 에서 이미지 못불러옴.
+        console.log("11", this.productImages);
       })
       .catch((error) => {
         console.error(error);
