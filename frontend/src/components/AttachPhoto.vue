@@ -31,7 +31,6 @@
         >
           <i class="xi-close"></i>
         </button>
-        <!-- <img :src="require(`../upload/${item}`)" alt="" /> -->
         <img :src="item" alt="" />
         <span class="badge" v-if="idx == 0">대표</span>
       </li>
@@ -49,6 +48,9 @@ export default {
     imgUrlArray: Array,
     imgUrlArrayLength: Number,
     isAttached: Boolean,
+  },
+  mounted() {
+    console.log(this.imgUrlArray);
   },
 };
 </script>

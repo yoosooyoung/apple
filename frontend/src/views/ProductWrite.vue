@@ -26,6 +26,7 @@ import WriteHeader from "../components/WriteHeader.vue";
 import AttachPhoto from "../components/AttachPhoto.vue";
 import InputGroup from "../components/InputGroup.vue";
 import { mapMutations, mapState, mapActions } from "vuex";
+import { getOneBoardRequest } from "../apis/board";
 import axios from "axios";
 
 export default {
@@ -162,19 +163,16 @@ export default {
     // 수정하기 데이터 불러오기
     getCustomData() {
       this.board_seq = this.$route.params.id;
-      axios
-        .get(`/api/board/view/${this.board_seq}`)
+      getOneBoardRequest(this.board_seq)
         .then((response) => {
-          console.log("ProductWrite getCustomData success:");
-          console.log(response.data);
-
-          let boardView = response.data.board;
-          let imgList = response.data.pictures;
+          const boardView = response.data.board;
+          const imgList = response.data.pictures;
 
           this.title = boardView.BOARD_TITLE;
           this.price = boardView.BOARD_PRICE;
           this.content = boardView.BOARD_CONTENT;
-          this.imgUrlArray = [...imgList];
+
+          this.imgUrlArray = imgList.map((img) => require("@/upload/" + img));
           this.imgUrlArrayLength = imgList.length;
         })
         .catch((error) => {
