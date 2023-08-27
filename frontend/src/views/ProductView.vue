@@ -3,45 +3,46 @@
     <h1 class="visually-hidden">상품상세 페이지</h1>
 
     <ProductCarousel
-      :data="data"
+      :productImages="productImages"
       :productImgModalIsShow="productImgModalIsShow"
       @openModal="openModal"
     />
 
+    <!-- BACK TO DO : 글 작성한 유저 정보 필요 - 230827 JHJ-->
     <UserInfo
-      :userImage="`${data.userImage}`"
-      :userId="`${data.userId}`"
-      :userNickName="`${data.userNickName}`"
-      :userLocation="`${data.userLocation}`"
+      :userImage="null"
+      :userId="`testId`"
+      :userNickName="`테스트닉네임`"
+      :userLocation="`테스트위치`"
     />
 
-    <ProductInfo :data="data" />
+    <ProductInfo :productData="productData" />
 
     <ProductImgModal
-      :data="data"
+      :productImages="productImages"
       :productImgModalIsShow="productImgModalIsShow"
       @closeModal="closeModal"
     />
 
-    <ProductCta :data="data" />
+    <ProductCta :productData="productData" />
   </div>
 </template>
 
 <script>
-import { useRoute } from "vue-router";
 import UserInfo from "@/components/UserInfo.vue";
 import ProductInfo from "@/components/ProductInfo.vue";
 import ProductCta from "@/components/ProductCta.vue";
 import ProductCarousel from "@/components/ProductCarousel.vue";
 import ProductImgModal from "@/components/ProductImgModal.vue";
 import { mapState } from "vuex";
-import axios from "axios";
+import { callBoardView } from "../apis/board";
 
 export default {
   name: "ProductView",
   data() {
     return {
-      data: {},
+      productData: {},
+      productImages: [],
       productImgModalIsShow: false,
       board_seq: null,
     };
@@ -67,13 +68,14 @@ export default {
   mounted() {
     this.board_seq = this.$route.params.id;
 
-    axios.get(`/api/board/view/${this.board_seq}`)
-        .then(response => {
-          console.log("success:");
-        })
-        .catch(error => {
-          console.error("Error fetching product:", error);
-        });
+    callBoardView(this.board_seq)
+      .then((response) => {
+        this.productData = response.data.board;
+        this.productImages = response.data.pictures;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
 };
 </script>

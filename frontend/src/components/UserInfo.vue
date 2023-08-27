@@ -27,8 +27,7 @@
 export default {
   name: "UserInfo",
   props: {
-    //data: Object,
-    userImage: String,
+    userImage: null,
     userId: String,
     userNickName: String,
     userLocation: String,

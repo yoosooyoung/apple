@@ -8,10 +8,10 @@
       @slideChange="onSlideChange"
     >
       <swiper-slide
-        v-for="(item, idx) in data.productImages"
+        v-for="(item, idx) in productImages"
         :key="idx"
         @click="$emit('openModal')"
-        ><img :src="`${item}`" alt=""
+        ><img :src="require(`../upload/${item}`)" alt=""
       /></swiper-slide>
     </swiper>
   </div>
@@ -33,7 +33,7 @@ export default {
     SwiperSlide,
   },
   props: {
-    data: Object,
+    productImages: Array,
     productImgModalIsShow: Boolean,
   },
   setup() {
