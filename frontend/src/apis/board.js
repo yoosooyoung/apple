@@ -1,12 +1,11 @@
 import { instance } from "./instance";
 
-// 상세 가져오기
-export const callBoardView = async (id) => {
+export const getOneBoardRequest = async (id) => {
   try {
-    const res = await instance.get(`view/${id}`);
-    return res;
-  } catch (err) {
-    console.error();
-    throw err;
+    const result = await instance.get(`board/view/${id}`);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };

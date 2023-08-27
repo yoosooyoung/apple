@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "/api/board/",
+  baseURL: "/api/",
   headers: { "Content-Type": "application/json" },
 });

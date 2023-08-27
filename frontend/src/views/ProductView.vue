@@ -35,7 +35,7 @@ import ProductCta from "@/components/ProductCta.vue";
 import ProductCarousel from "@/components/ProductCarousel.vue";
 import ProductImgModal from "@/components/ProductImgModal.vue";
 import { mapState } from "vuex";
-import { callBoardView } from "../apis/board";
+import { getOneBoardRequest } from "../apis/board";
 
 export default {
   name: "ProductView",
@@ -68,7 +68,7 @@ export default {
   mounted() {
     this.board_seq = this.$route.params.id;
 
-    callBoardView(this.board_seq)
+    getOneBoardRequest(this.board_seq)
       .then((response) => {
         this.productData = response.data.board;
         this.productImages = response.data.pictures;
