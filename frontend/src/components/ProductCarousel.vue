@@ -12,8 +12,7 @@
         :key="idx"
         @click="$emit('openModal')"
       >
-        <!-- <img :src="require(`/upload/${item}`)" alt=""
-      /> -->
+        <img :src="require(`@/upload/${item}`)" alt="" />
       </swiper-slide>
     </swiper>
   </div>
@@ -38,9 +37,7 @@ export default {
     productImages: Array,
     productImgModalIsShow: Boolean,
   },
-  mounted() {
-    console.log("22", this.productImages, this.productImgModalIsShow);
-  },
+
   setup() {
     const onSwiper = () => {};
     const onSlideChange = () => {};

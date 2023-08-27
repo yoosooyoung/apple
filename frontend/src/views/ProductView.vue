@@ -44,7 +44,7 @@ export default {
       productImgModalIsShow: false,
       board_seq: null,
       productData: {},
-      productImages: [""],
+      productImages: [],
     };
   },
   components: {
@@ -69,9 +69,7 @@ export default {
       .then(async (response) => {
         console.log(response);
         this.productData = response.data.board;
-        this.productImages = [...response.data.pictures];
-        // FRONT TO DO :: ProudctCarousel.vue 에서 이미지 못불러옴.
-        console.log("11", this.productImages);
+        this.productImages = response.data.pictures;
       })
       .catch((error) => {
         console.error(error);
