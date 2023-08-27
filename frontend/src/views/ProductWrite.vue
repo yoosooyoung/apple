@@ -26,7 +26,11 @@ import WriteHeader from "../components/WriteHeader.vue";
 import AttachPhoto from "../components/AttachPhoto.vue";
 import InputGroup from "../components/InputGroup.vue";
 import { mapMutations, mapState, mapActions } from "vuex";
-import { getOneBoardRequest } from "../apis/board";
+import {
+  getOneBoardRequest,
+  createBoardRequest,
+  createBoardImageRequest,
+} from "../apis/board";
 import axios from "axios";
 
 export default {
@@ -135,28 +139,21 @@ export default {
         this.defineData();
 
         // 게시글 생성
-        var photoFile = document.getElementById("buttonAttach");
+        createBoardRequest(this.definedData).then((res) => {
+          // BACK TO DO : 1. 해당 데이터 변수명 형식 맞춰주세요. - 230827 JHJ
+          // BACK TO DO : 2. JSON형태로 데이터 보낼수 있게 해주세요 - 230827 JHJ
+          // BACK TO DO : 3. 이미지 createBoardRequest에 한번에 처리할수 없나요? - 230827 JHJ
+          const photoFile = document.getElementById("buttonAttach");
+          const frm = new FormData();
+          frm.append("board_seq", res.data.board_seq);
+          frm.append("buttonAttach", photoFile.files[0]);
 
-        axios
-          .post("/api/board/write", JSON.stringify(this.definedData), {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => {
-            var frm = new FormData();
-            frm.append("board_seq", res.data.board_seq);
-            frm.append("buttonAttach", photoFile.files[0]);
-
-            // 사진첨부
-            axios.post("/api/board/upload/files", frm, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            });
+          // 사진첨부
+          createBoardImageRequest(frm).then(() => {
             this.getProductList();
             this.$router.push("/");
           });
+        });
       }
     },
 
