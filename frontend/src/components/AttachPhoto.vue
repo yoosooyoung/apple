@@ -31,7 +31,7 @@
         >
           <i class="xi-close"></i>
         </button>
-        <img :src="`${item}`" alt="" />
+        <img :src="require(`../upload/${item}`)" alt="" />
         <span class="badge" v-if="idx == 0">대표</span>
       </li>
     </ul>
